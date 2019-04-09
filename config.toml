@@ -1,4 +1,4 @@
-baseURL = "https://d.zinrai.net/public"
+baseURL = "https://d.zinrai.net/"
 languageCode = "ja"
 title = "command not found:"
 theme = "elephants"
