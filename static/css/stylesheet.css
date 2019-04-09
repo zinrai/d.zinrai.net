@@ -7,6 +7,7 @@ body {
 
 pre {
     background: #dcdcdc;
+    white-space: pre-wrap;
 }
 
 #page-title {
