@@ -1,4 +1,5 @@
 baseURL = "/"
+relativeurls = true
 languageCode = "ja"
 title = "command not found:"
 theme = "elephants"
