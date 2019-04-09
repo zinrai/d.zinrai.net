@@ -6,7 +6,7 @@
 
         <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 
-        <title>Hugo</title>
+        <title>HUGO</title>
 
         <link rel="stylesheet" href="../../css/stylesheet.css">
     </head>
@@ -18,7 +18,7 @@
 
 
 <section class="blog-post">
-    <h1>Hugo</h1>
+    <h1>HUGO</h1>
     <div class="blog-post-subheader">
         January 19, 2019
     </div>
@@ -82,10 +82,20 @@ $ cd d.zinrai.net
 $ git init
 </code></pre>
 
-<h2 id="テーマの設定">テーマの設定</h2>
+<h2 id="テーマの取得">テーマの取得</h2>
 
 <pre><code>$ git submodule add https://gitlab.com/meibenny/elephants themes/elephants
-$ echo 'theme = &quot;elephants&quot;' &gt;&gt; config.toml
+</code></pre>
+
+<h2 id="テーマの設定">テーマの設定</h2>
+
+<pre><code>$ cat &lt;&lt; EOF &gt;&gt; config.toml
+baseURL = &quot;/&quot;
+relativeurls = true
+languageCode = &quot;ja&quot;
+title = &quot;command not found:&quot;
+theme = &quot;elephants&quot;
+EOF
 </code></pre>
 
 <h2 id="記事作成">記事作成</h2>

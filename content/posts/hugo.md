@@ -1,5 +1,5 @@
 ---
-title: "Hugo"
+title: "HUGO"
 date: 2019-01-19T21:47:42+09:00
 draft: false
 ---
@@ -63,10 +63,20 @@ $ cd d.zinrai.net
 $ git init
 ```
 
-## テーマの設定
+## テーマの取得
 ```
 $ git submodule add https://gitlab.com/meibenny/elephants themes/elephants
-$ echo 'theme = "elephants"' >> config.toml
+```
+
+## テーマの設定
+```
+$ cat << EOF >> config.toml
+baseURL = "/"
+relativeurls = true
+languageCode = "ja"
+title = "command not found:"
+theme = "elephants"
+EOF
 ```
 
 ## 記事作成
