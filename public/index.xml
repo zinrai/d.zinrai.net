@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>command not found:</title>
-    <link>https://d.zinrai.net/</link>
+    <link>/</link>
     <description>Recent content on command not found:</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Sat, 19 Jan 2019 21:47:42 +0900</lastBuildDate>
     
-	<atom:link href="https://d.zinrai.net/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Hugo</title>
-      <link>https://d.zinrai.net/posts/hugo/</link>
+      <link>/posts/hugo/</link>
       <pubDate>Sat, 19 Jan 2019 21:47:42 +0900</pubDate>
       
-      <guid>https://d.zinrai.net/posts/hugo/</guid>
+      <guid>/posts/hugo/</guid>
       <description>debian-devel-changes のメーリングリストを眺めていたら、 HUGO という Site Generator を見付けた。 数年前にブログ環境を消失してから、ブログを書く気力が無くなってしまっていたが、HUGO を使い Github Pages にブログを書くことを再開しようと思う。
 debian-devel-changes
 https://lists.debian.org/debian-devel-changes/
