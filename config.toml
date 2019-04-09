@@ -1,0 +1,7 @@
+baseURL = "https://d.zinrai.net"
+languageCode = "ja"
+title = "command not found:"
+theme = "elephants"
+
+[params]
+    sitename = "command not found:"
