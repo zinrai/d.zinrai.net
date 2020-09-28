@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on command not found:</title>
@@ -20,7 +20,7 @@
       <description>GlobalProtect で VPN 接続する機会があり、 Mac も Windows も持っていないのでどうしたものかと調べていたところ、 OpenConnect というソフトウェアで GlobalProtect に VPN 接続することができることを知ったので記録として残しておく。 OpenConnect の開発者と Debian パッケージのメンテナーありがとう。
 openconnect
 https://packages.debian.org/ja/sid/openconnect
-環境 $ lsb_release -a No LSB modules are available. Distributor ID: Debian Description: Debian GNU/Linux buster/sid Release: unstable Codename: sid  $ uname -a Linux koyomi 4.19.0-4-amd64 #1 SMP Debian 4.19.28-2 (2019-03-15) x86_64 GNU/Linux fchu@koyomi:~$ lsb_release -a No LSB modules are available. Distributor ID: Debian Description: Debian GNU/Linux buster/sid Release: unstable Codename: sid  $ apt-cache show openconnect Package: openconnect Version: 8.</description>
+環境 $ lsb_release -a No LSB modules are available. Distributor ID: Debian Description: Debian GNU/Linux buster/sid Release: unstable Codename: sid $ uname -a Linux koyomi 4.19.0-4-amd64 #1 SMP Debian 4.19.28-2 (2019-03-15) x86_64 GNU/Linux fchu@koyomi:~$ lsb_release -a No LSB modules are available. Distributor ID: Debian Description: Debian GNU/Linux buster/sid Release: unstable Codename: sid $ apt-cache show openconnect Package: openconnect Version: 8.</description>
     </item>
     
     <item>
@@ -36,7 +36,7 @@ HUGO
 https://gohugo.io/
 HUGO の Debian パッケージ
 https://packages.debian.org/sid/hugo
-実行環境 $ lsb_release -a No LSB modules are available. Distributor ID: Debian Description: Debian GNU/Linux buster/sid Release: unstable Codename: sid  $ uname -a Linux koyomi 4.19.0-4-amd64 #1 SMP Debian 4.19.28-2 (2019-03-15) x86_64 GNU/Linux  インストール # apt-get install hugo  バージョン $ hugo version Hugo Static Site Generator v0.</description>
+実行環境 $ lsb_release -a No LSB modules are available. Distributor ID: Debian Description: Debian GNU/Linux buster/sid Release: unstable Codename: sid $ uname -a Linux koyomi 4.19.0-4-amd64 #1 SMP Debian 4.19.28-2 (2019-03-15) x86_64 GNU/Linux インストール # apt-get install hugo バージョン $ hugo version Hugo Static Site Generator v0.54.0/extended linux/amd64 BuildDate: 2019-02-01T18:13:18Z ブログのような形式で情報が並ぶと目的の情報に辿り着くまでがしんどかったので、 タグも日時も表示されず、単一のページにタイトルだけがずらっと並び、 そこを Ctrl + f で検索するような、とにかくシンプルなテーマを探し、下記を見付けた。</description>
     </item>
     
   </channel>

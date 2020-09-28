@@ -1,47 +1,48 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OpenConnect | command not found:</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/fonts.css" />
+    
+  </head>
 
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="../../">Home</a></li>
+      
+      <li><a href="../../about/">About</a></li>
+      
+      <li><a href="../../categories/">Categories</a></li>
+      
+      <li><a href="../../tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
 
-        <title>OpenConnect</title>
+<div class="article-meta">
+<h1><span class="title">OpenConnect</span></h1>
 
-        <link rel="stylesheet" href="../../css/stylesheet.css">
-    </head>
-    <body>
-        <section id="page-title">
-            <h1><a href="../../">command not found:</a></h1>
-        </section>
+<h2 class="date">2019/04/04</h2>
+</div>
 
-
-
-<section class="blog-post">
-    <h1>OpenConnect</h1>
-    <div class="blog-post-subheader">
-        April 4, 2019
-    </div>
-    <div class="blog-post-content">
-        
-
+<main>
 <p>GlobalProtect で VPN 接続する機会があり、 Mac も Windows も持っていないのでどうしたものかと調べていたところ、 OpenConnect というソフトウェアで GlobalProtect に VPN 接続することができることを知ったので記録として残しておく。 OpenConnect の開発者と Debian パッケージのメンテナーありがとう。</p>
-
 <p>openconnect</p>
-
 <p><a href="https://packages.debian.org/ja/sid/openconnect">https://packages.debian.org/ja/sid/openconnect</a></p>
-
 <h2 id="環境">環境</h2>
-
 <pre><code>$ lsb_release -a
 No LSB modules are available.
 Distributor ID: Debian
 Description:    Debian GNU/Linux buster/sid
 Release:        unstable
 Codename:       sid
-</code></pre>
-
-<pre><code>$ uname -a
+</code></pre><pre><code>$ uname -a
 Linux koyomi 4.19.0-4-amd64 #1 SMP Debian 4.19.28-2 (2019-03-15) x86_64 GNU/Linux
 fchu@koyomi:~$ lsb_release -a
 No LSB modules are available.
@@ -49,9 +50,7 @@ Distributor ID: Debian
 Description:    Debian GNU/Linux buster/sid
 Release:        unstable
 Codename:       sid
-</code></pre>
-
-<pre><code>$ apt-cache show openconnect
+</code></pre><pre><code>$ apt-cache show openconnect
 Package: openconnect
 Version: 8.02-1
 Installed-Size: 2573
@@ -75,22 +74,18 @@ Filename: pool/main/o/openconnect/openconnect_8.02-1_amd64.deb
 Size: 473132
 MD5sum: d2433e28a8b4a9f2195937ac05d35f26
 SHA256: 0a972888b9a2e3b863f2612f314584df862361ac796a5761f5b2e46492bf9622
-</code></pre>
-
-<h2 id="インストール">インストール</h2>
-
+</code></pre><h2 id="インストール">インストール</h2>
 <pre><code>$ sudo apt-get install openconnect
-</code></pre>
-
-<h2 id="接続">接続</h2>
-
+</code></pre><h2 id="接続">接続</h2>
 <p>下記のコマンドライン実行後に ID, Password の入力を求められるので、入力すると VPN 接続が完了する。</p>
-
 <pre><code>$ sudo openconnect --protocol=gp vpn.example.jp
 </code></pre>
+</main>
 
-    </div>
-</section>
-
-    </body>
+  <footer>
+  
+  
+  </footer>
+  </body>
 </html>
+
