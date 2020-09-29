@@ -33,6 +33,21 @@
   </url>
   
   <url>
+    <loc>/tags/chroot/</loc>
+    <lastmod>2020-09-28T22:59:31+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/chroot-overlayfs/</loc>
+    <lastmod>2020-09-28T22:59:31+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/overlayfs/</loc>
+    <lastmod>2020-09-28T22:59:31+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/posts/openconnect/</loc>
     <lastmod>2019-04-04T01:27:45+09:00</lastmod>
   </url>

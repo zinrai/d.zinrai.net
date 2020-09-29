@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>chroot &#43; OverlayFS | command not found:</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="../../">Home</a></li>
+      
+      <li><a href="../../about/">About</a></li>
+      
+      <li><a href="../../categories/">Categories</a></li>
+      
+      <li><a href="../../tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">chroot + OverlayFS</span></h1>
+
+<h2 class="date">2020/09/28</h2>
+</div>
+
+<main>
+<p>出番がないかもしれないが、 OverlayFS で chroot 環境をクリーンに保つをやってみた。</p>
+<pre><code>$ uname -a
+Linux dbuster01 4.19.0-9-amd64 #1 SMP Debian 4.19.118-2+deb10u1 (2020-06-07) x86_64 GNU/Linux
+$ cat /etc/debian_version
+10.4
+</code></pre><pre><code>% debootstrap buster ./buster64 http://ftp.jp.debian.org/debian
+</code></pre><p>OverlayFS でのマウントについては mount (8) を参照</p>
+<pre><code>% mkdir upper workdir
+% mount -t overlay overlay -o lowerdir=./buster64,upperdir=./upper,workdir=./workdir ./buster64
+</code></pre><pre><code>% df
+ファイルシス   1K-ブロック    使用   使用可 使用% マウント位置
+udev               2005984       0  2005984    0% /dev
+tmpfs               404160    5436   398724    2% /run
+/dev/vda3         99016264 2958444 91008396    4% /
+tmpfs              2020792       0  2020792    0% /dev/shm
+tmpfs                 5120       0     5120    0% /run/lock
+tmpfs              2020792       0  2020792    0% /sys/fs/cgroup
+overlay           99016264 2958444 91008396    4% /root/buster64
+</code></pre><pre><code>% mount --rbind /dev ./buster64/dev
+% mount -t proc none ./buster64/proc
+% mount --rbind /sys ./buster64/sys
+% chroot ./buster64 /bin/bash
+</code></pre>
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+
