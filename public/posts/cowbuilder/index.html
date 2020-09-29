@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>cowbuilder | command not found:</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="../../">Home</a></li>
+      
+      <li><a href="../../about/">About</a></li>
+      
+      <li><a href="../../categories/">Categories</a></li>
+      
+      <li><a href="../../tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">cowbuilder</span></h1>
+
+<h2 class="date">2020/09/30</h2>
+</div>
+
+<main>
+<p>仕事で様々なバージョンの Debian パッケージを作らなければならなかったとき、
+環境を用意するコストがとても低くて重宝した。</p>
+<pre><code>% apt-get install cowbuilder
+</code></pre><p>chroot 環境の作成</p>
+<pre><code>% cowbuilder --create --distribution buster --architecture amd64 --basepath  /var/cache/pbuilder/buster64.cow
+</code></pre><p>chroot 環境へのログイン</p>
+<pre><code># cowbuilder --login --basepath /var/cache/pbuilder/buster64.cow
+</code></pre><p>&ndash;save オプションを付けると chroot 環境への変更を保存できる。</p>
+<pre><code>% cowbuilder --login --save --basepath /var/cache/pbuilder/buster64.cow
+</code></pre><p>bind mount</p>
+<pre><code>% cowbuilder --login --save --bindmount /home/workdir --basepath /var/cache/pbuilder/buster64.cow
+</code></pre><p>下記を実行し、作成した chroot 環境をまとめて更新していた。</p>
+<pre><code>% for a in /var/cache/pbuilder/*.cow; do cowbuilder --update --basepath $a; done
+</code></pre>
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+
