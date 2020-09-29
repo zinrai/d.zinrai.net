@@ -6,9 +6,46 @@
     <description>Recent content in Tags on command not found:</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
+    <lastBuildDate>Tue, 29 Sep 2020 17:50:53 +0900</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>debian</title>
+      <link>/tags/debian/</link>
+      <pubDate>Tue, 29 Sep 2020 17:50:53 +0900</pubDate>
+      
+      <guid>/tags/debian/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>lxc</title>
+      <link>/tags/lxc/</link>
+      <pubDate>Tue, 29 Sep 2020 17:50:53 +0900</pubDate>
+      
+      <guid>/tags/lxc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>openconnect</title>
+      <link>/tags/openconnect/</link>
+      <pubDate>Thu, 04 Apr 2019 01:27:45 +0900</pubDate>
+      
+      <guid>/tags/openconnect/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hugo</title>
+      <link>/tags/hugo/</link>
+      <pubDate>Sat, 19 Jan 2019 21:47:42 +0900</pubDate>
+      
+      <guid>/tags/hugo/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

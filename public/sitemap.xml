@@ -4,7 +4,32 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2019-04-04T01:27:45+09:00</lastmod>
+    <lastmod>2020-09-29T17:50:53+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/debian/</loc>
+    <lastmod>2020-09-29T17:50:53+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/lxc/</loc>
+    <lastmod>2020-09-29T17:50:53+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/lxc/</loc>
+    <lastmod>2020-09-29T17:50:53+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/</loc>
+    <lastmod>2020-09-29T17:50:53+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-09-29T17:50:53+09:00</lastmod>
   </url>
   
   <url>
@@ -13,7 +38,7 @@
   </url>
   
   <url>
-    <loc>/posts/</loc>
+    <loc>/tags/openconnect/</loc>
     <lastmod>2019-04-04T01:27:45+09:00</lastmod>
   </url>
   
@@ -23,11 +48,12 @@
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>/tags/hugo/</loc>
+    <lastmod>2019-01-19T21:47:42+09:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/</loc>
+    <loc>/categories/</loc>
   </url>
   
 </urlset>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>lxc on command not found:</title>
+    <link>/tags/lxc/</link>
+    <description>Recent content in lxc on command not found:</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 29 Sep 2020 17:50:53 +0900</lastBuildDate>
+    
+	<atom:link href="/tags/lxc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>LXC</title>
+      <link>/posts/lxc/</link>
+      <pubDate>Tue, 29 Sep 2020 17:50:53 +0900</pubDate>
+      
+      <guid>/posts/lxc/</guid>
+      <description>$ uname -a Linux dbuster01 4.19.0-9-amd64 #1 SMP Debian 4.19.118-2+deb10u1 (2020-06-07) x86_64 GNU/Linux $ cat /etc/debian_version 10.4 依存関係でいろいろ入ってしまうけれども iptables, dnsmasq, bridge-utils それぞれを操作するのが面倒なので、 virsh (1) で全てよしなにやってもらうことにした。
+% apt-get install libvirt-clients libvirt-daemon-system dnsmasq bridge-utils % virsh net-list Name State Autostart Persistent -------------------------------------------- default active no yes # ip addr show virbr0 3: virbr0: &amp;lt;BROADCAST,MULTICAST,UP,LOWER_UP&amp;gt; mtu 1500 qdisc noqueue state UP group default qlen 1000 link/ether 52:54:00:75:2f:a9 brd ff:ff:ff:ff:ff:ff inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0 valid_lft forever preferred_lft forever LXC インストール</description>
+    </item>
+    
+  </channel>
+</rss>
