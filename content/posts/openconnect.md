@@ -1,7 +1,7 @@
 ---
 title: "OpenConnect"
 date: 2019-04-04T01:27:45+09:00
-draft: false
+tags: ['openconnect','debian']
 ---
 
 GlobalProtect で VPN 接続する機会があり、 Mac も Windows も持っていないのでどうしたものかと調べていたところ、 OpenConnect というソフトウェアで GlobalProtect に VPN 接続することができることを知ったので記録として残しておく。 OpenConnect の開発者と Debian パッケージのメンテナーありがとう。
