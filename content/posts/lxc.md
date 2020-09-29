@@ -26,7 +26,7 @@ $ cat /etc/debian_version
 ```
 
 ```
-# ip addr show virbr0
+$ ip addr show virbr0
 3: virbr0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
     link/ether 52:54:00:75:2f:a9 brd ff:ff:ff:ff:ff:ff
     inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0
