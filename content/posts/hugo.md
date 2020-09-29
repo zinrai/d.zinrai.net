@@ -1,7 +1,7 @@
 ---
 title: "HUGO"
 date: 2019-01-19T21:47:42+09:00
-draft: false
+tags: ['hugo', 'debian']
 ---
 
 debian-devel-changes のメーリングリストを眺めていたら、 HUGO という Site Generator を見付けた。
