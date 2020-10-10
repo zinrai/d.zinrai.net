@@ -5,8 +5,8 @@ tags: ['lxc', 'debian']
 ---
 
 ```
-$ uname -a
-Linux dbuster01 4.19.0-9-amd64 #1 SMP Debian 4.19.118-2+deb10u1 (2020-06-07) x86_64 GNU/Linux
+$ uname -srv
+Linux 4.19.0-9-amd64 #1 SMP Debian 4.19.118-2+deb10u1 (2020-06-07)
 $ cat /etc/debian_version
 10.4
 ```
