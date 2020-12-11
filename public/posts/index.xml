@@ -6,10 +6,28 @@
     <description>Recent content in Posts on command not found:</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 30 Sep 2020 00:27:00 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 11 Dec 2020 07:18:38 +0900</lastBuildDate>
     
 	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Promxy を使ったアーキテクチャ</title>
+      <link>/posts/promxy-architecture/</link>
+      <pubDate>Fri, 11 Dec 2020 07:18:38 +0900</pubDate>
+      
+      <guid>/posts/promxy-architecture/</guid>
+      <description>さくらインターネット Advent Calendar 2020 11日目の記事になります。
+「さくらの専用サーバ PHY」にてメトリクス保存・公開の基盤を担当している者です。 アプリケーション、サーバー、ネットワーク機器などのメトリクスを保存・公開する基盤として Prometheus を利用しています。 Prometheus にあるメトリクスを使い、 ユーザーにトラフィックグラフを提供したり、 自分達がシステムの異常に気が付くための監視を構成しています。
+Prometheus のメトリクスを利用するにあたり、抱えていた2つの課題を Promxy を利用することによって解決することができ、 そこに至るまで、どのように考え、 どのようなアーキテクチャをとったのか、これからどうしていこうと考えているのかについて書きました。
+ユーザーにトラフィックグラフを提供する 「さくらの専用サーバ PHY」のコントロールパネルにてトラフィックグラフを提供しており、 値は Prometheus に保存されているメトリクスを使っています。 ユーザーにトラフィックグラフのサービスを提供するにあたり、 インフラ側の可用性を上げるための構成を考え、実装する必要がありました。
+Prometheus での高可用性 2台の Prometheus を動かし同じメトリクスを取得させるというのが公式の見解となっています。
+https://prometheus.io/docs/introduction/faq/#can-prometheus-be-made-highly-available
+ロードバランサを使った構成 Prometheus 公式の構成で、ロードバランサをエンドポイントにしてバックエンドに2台の Prometheus がいるという構成をとったとして、どうなるかを考えてみました。
+この構成では、どちらからの Prometheus が一定時間落ちて復帰した場合、 保存しているメトリクスの対称性が失われてしまい、 エンドポイントにリクエストするごとに返ってくるメトリクスの結果が異なってしまうという状態がが発生するなと考え、採用を見送りました。
+ロードバランサと Promxy を組み合わせた構成 Promxy は、メトリクスを Aggregate する機能を持っています。 Prometheus のセットが同じタイミングで落ちない限りは、 対称性の失われた Prometheus のセットに対して、 欠損することなくメトリクスを返すことができるため、 Promxy を使ったこちらの構成を採用しました。
+アラートルールの管理 サービスの利用者が増えれば、利用される機器も増え、取得するメトリクスも線形に増加していきます。 1台の Prometheus 取得できるメトリクスには限界があり、 「さくらの専用サーバ PHY」で扱っている全てのメトリクスは管理できません。 Prometheus を複数台運用することが前提となります。 Prometheus のメトリクスを使ったアラート発報のためのアラートルールをどのように管理していくのかという問題に当たりました。</description>
+    </item>
     
     <item>
       <title>cowbuilder</title>

@@ -4,7 +4,32 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2020-09-30T00:27:00+09:00</lastmod>
+    <lastmod>2020-12-11T07:18:38+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/</loc>
+    <lastmod>2020-12-11T07:18:38+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/prometheus/</loc>
+    <lastmod>2020-12-11T07:18:38+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/promxy/</loc>
+    <lastmod>2020-12-11T07:18:38+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/promxy-architecture/</loc>
+    <lastmod>2020-12-11T07:18:38+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-12-11T07:18:38+09:00</lastmod>
   </url>
   
   <url>
@@ -19,16 +44,6 @@
   
   <url>
     <loc>/tags/debian/</loc>
-    <lastmod>2020-09-30T00:27:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/posts/</loc>
-    <lastmod>2020-09-30T00:27:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2020-09-30T00:27:00+09:00</lastmod>
   </url>
   
@@ -75,6 +90,11 @@
   <url>
     <loc>/tags/hugo/</loc>
     <lastmod>2019-01-19T21:47:42+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/about/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
