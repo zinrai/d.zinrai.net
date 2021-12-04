@@ -27,7 +27,7 @@ Prometheus のメトリクスを利用するにあたり、抱えていた2つ�
 
 ## Prometheus での高可用性
 
-![Prometheus での高可用性](../..//imgs/prometheus-highly-available.png)
+![Prometheus での高可用性](../../imgs/promxy-architecture/prometheus-highly-available.png)
 
 2台の Prometheus を動かし同じメトリクスを取得させるというのが公式の見解となっています。
 
@@ -35,7 +35,7 @@ https://prometheus.io/docs/introduction/faq/#can-prometheus-be-made-highly-avail
 
 ## ロードバランサを使った構成
 
-![ロードバランサを使った構成](../..//imgs/prometheus-loadbalancer-highly-available.png)
+![ロードバランサを使った構成](../../imgs/promxy-architecture/prometheus-loadbalancer-highly-available.png)
 
 Prometheus 公式の構成で、ロードバランサをエンドポイントにしてバックエンドに2台の Prometheus がいるという構成をとったとして、どうなるかを考えてみました。
 
@@ -45,7 +45,7 @@ Prometheus 公式の構成で、ロードバランサをエンドポイントに
 
 ## ロードバランサと Promxy を組み合わせた構成
 
-![Promxy とロードバランサを組み合わせた構成](../..//imgs/prometheus-promxy-highly-available.png)
+![Promxy とロードバランサを組み合わせた構成](../../imgs/promxy-architecture/prometheus-promxy-highly-available.png)
 
 Promxy は、メトリクスを Aggregate する機能を持っています。
 Prometheus のセットが同じタイミングで落ちない限りは、
@@ -63,7 +63,7 @@ Prometheus のメトリクスを使ったアラート発報のためのアラー
 
 ## Prometheus のみの場合
 
-![Prometheus のみの場合](../..//imgs/prometheus-alertmanager.png)
+![Prometheus のみの場合](../../imgs/promxy-architecture/prometheus-alertmanager.png)
 
 Prometheus を使う場合、
 アラート発報のためのアラートルールを Prometheus に設定する構成となります。
@@ -74,7 +74,7 @@ Prometheus のセットが増えるごとにコンフィグを適用する時間
 
 ## Promxy と組み合わせた場合
 
-![Promxy と組合せた場合](../..//imgs/prometheus-promxy-alertmanager.png)
+![Promxy と組合せた場合](../../imgs/promxy-architecture/prometheus-promxy-alertmanager.png)
 
 Promxy は Prometheus からメトリクスを取得し、設定したアラートルールに従いメトリクスを評価します。
 アラートルールに該当していた場合は、 Promxy から Alertmanager にアラートが通知されます。
@@ -84,7 +84,7 @@ Prometheus はメトリクスの取得と公開という役割になり Promethe
 
 # 今後の構想
 
-![VictoriaMetrics での構成](../..//imgs/victoria-metrics-architecture.png)
+![VictoriaMetrics での構成](../../imgs/promxy-architecture/victoria-metrics-architecture.png)
 
 Promxy を使った構成は、自分が利用している範囲では、特に不具合もなく動いています。
 開発者には圧倒的感謝しかないです。
