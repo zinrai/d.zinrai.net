@@ -47,17 +47,17 @@ Prometheus にあるメトリクスを使い、
 ユーザーにトラフィックグラフのサービスを提供するにあたり、
 インフラ側の可用性を上げるための構成を考え、実装する必要がありました。</p>
 <h2 id="prometheus-での高可用性">Prometheus での高可用性</h2>
-<p><img src="../..//imgs/prometheus-highly-available.png" alt="Prometheus での高可用性"></p>
+<p><img src="../../imgs/promxy-architecture/prometheus-highly-available.png" alt="Prometheus での高可用性"></p>
 <p>2台の Prometheus を動かし同じメトリクスを取得させるというのが公式の見解となっています。</p>
 <p><a href="https://prometheus.io/docs/introduction/faq/#can-prometheus-be-made-highly-available">https://prometheus.io/docs/introduction/faq/#can-prometheus-be-made-highly-available</a></p>
 <h2 id="ロードバランサを使った構成">ロードバランサを使った構成</h2>
-<p><img src="../..//imgs/prometheus-loadbalancer-highly-available.png" alt="ロードバランサを使った構成"></p>
+<p><img src="../../imgs/promxy-architecture/prometheus-loadbalancer-highly-available.png" alt="ロードバランサを使った構成"></p>
 <p>Prometheus 公式の構成で、ロードバランサをエンドポイントにしてバックエンドに2台の Prometheus がいるという構成をとったとして、どうなるかを考えてみました。</p>
 <p>この構成では、どちらからの Prometheus が一定時間落ちて復帰した場合、
 保存しているメトリクスの対称性が失われてしまい、
 エンドポイントにリクエストするごとに返ってくるメトリクスの結果が異なってしまうという状態がが発生するなと考え、採用を見送りました。</p>
 <h2 id="ロードバランサと-promxy-を組み合わせた構成">ロードバランサと Promxy を組み合わせた構成</h2>
-<p><img src="../..//imgs/prometheus-promxy-highly-available.png" alt="Promxy とロードバランサを組み合わせた構成"></p>
+<p><img src="../../imgs/promxy-architecture/prometheus-promxy-highly-available.png" alt="Promxy とロードバランサを組み合わせた構成"></p>
 <p>Promxy は、メトリクスを Aggregate する機能を持っています。
 Prometheus のセットが同じタイミングで落ちない限りは、
 対称性の失われた Prometheus のセットに対して、
@@ -70,7 +70,7 @@ Promxy を使ったこちらの構成を採用しました。</p>
 Prometheus を複数台運用することが前提となります。
 Prometheus のメトリクスを使ったアラート発報のためのアラートルールをどのように管理していくのかという問題に当たりました。</p>
 <h2 id="prometheus-のみの場合">Prometheus のみの場合</h2>
-<p><img src="../..//imgs/prometheus-alertmanager.png" alt="Prometheus のみの場合"></p>
+<p><img src="../../imgs/promxy-architecture/prometheus-alertmanager.png" alt="Prometheus のみの場合"></p>
 <p>Prometheus を使う場合、
 アラート発報のためのアラートルールを Prometheus に設定する構成となります。
 Prometheus の台数ぶんアラートルールを配布しなければならず、
@@ -78,14 +78,14 @@ Prometheus のセットが増えるごとにコンフィグを適用する時間
 ユーザーの増加に合わせて Prometheus のセットが増えていきアラートルールの適用、切り戻し時間が増加していく未来を想像しました。
 アラートルールを一箇所に集約し、メトリクス評価とアラート発報する仕組みは無いだろうかと考えました。</p>
 <h2 id="promxy-と組み合わせた場合">Promxy と組み合わせた場合</h2>
-<p><img src="../..//imgs/prometheus-promxy-alertmanager.png" alt="Promxy と組合せた場合"></p>
+<p><img src="../../imgs/promxy-architecture/prometheus-promxy-alertmanager.png" alt="Promxy と組合せた場合"></p>
 <p>Promxy は Prometheus からメトリクスを取得し、設定したアラートルールに従いメトリクスを評価します。
 アラートルールに該当していた場合は、 Promxy から Alertmanager にアラートが通知されます。
 全ての Prometheus にアラートルールを配布する構成から Promxy でアラートルールを管理すればよい構成になりアラートルールを集約できました。
 Prometheus からメトリクスの評価とアラート発報を切り離したことで、
 Prometheus はメトリクスの取得と公開という役割になり Prometheus の構成を単純にできました。</p>
 <h1 id="今後の構想">今後の構想</h1>
-<p><img src="../..//imgs/victoria-metrics-architecture.png" alt="VictoriaMetrics での構成"></p>
+<p><img src="../../imgs/promxy-architecture/victoria-metrics-architecture.png" alt="VictoriaMetrics での構成"></p>
 <p>Promxy を使った構成は、自分が利用している範囲では、特に不具合もなく動いています。
 開発者には圧倒的感謝しかないです。</p>
 <p>Promxy は、メトリクスを取得するインタフェース、メトリクス評価、

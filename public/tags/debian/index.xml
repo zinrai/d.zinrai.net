@@ -6,11 +6,7 @@
     <description>Recent content in debian on command not found:</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 30 Sep 2020 00:27:00 +0900</lastBuildDate>
-    
-	<atom:link href="/tags/debian/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 30 Sep 2020 00:27:00 +0900</lastBuildDate><atom:link href="/tags/debian/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>cowbuilder</title>
       <link>/posts/cowbuilder/</link>
