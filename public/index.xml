@@ -6,7 +6,30 @@
     <description>Recent content on command not found:</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 05 Dec 2021 13:45:07 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 06 Dec 2021 10:26:12 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>コンテナオーケストレーションを使うモチベーションを自分なりに考えてみた</title>
+      <link>/posts/motivation-using-container-orchestration/</link>
+      <pubDate>Mon, 06 Dec 2021 10:26:12 +0900</pubDate>
+      
+      <guid>/posts/motivation-using-container-orchestration/</guid>
+      <description>さくらインターネット Advent Calendar 2021 6日目の記事になります。
+Docker でのアプリケーション実行環境を提供した状況を想像してみる にて、 Docker を導入しただけで、万事解決とはならなそうであるということを書きました。
+今回は、 Docker の導入だけでは解決できないことに対して、どのようなことができればよいのかということを考え、それらを解決する具体的な手段について書いていきます。
+Docker だけでは解決できていないこと 下記のようなことができれば、アプリケーション開発者はサーバーのことを気にせず、 サーバー管理者はアプリケーションのことを気にしない仕組みになるのではないかと考えました。
+「 Docker を実行できる環境があれば、どこでもアプリケーションを実行できるが、サーバーで Docker を実行できるだけでは、サーバーに付けた名前や IP アドレスで、アプリケーションに接続するという構図から抜け出せない」
+Docker を実行できるサーバーを沢山用意して、その中のどれかでアプリケーションが実行されるということができれば、 アプリケーションとサーバーが密に結合するという状態を解消できそうです。
+「サーバー管理者の裁量でサーバーをコントロールできる部分が少なそう」
+Docker を実行できるサーバーを沢山用意して、 その中のどれかでアプリケーションが実行されるということができるかつ、 メンテナンスしたいサーバーでは Docker コンテナを実行できないようにすれば、 アプリケーション開発者は、サーバーの停止を意識することがなくアプリケーションを実行でき、 サーバー管理者は、サーバーを任意のタイミングで停止できるようになりそうです。
+「 Docker で動くアプリケーションをデプロイする統一されたインタフェースが無い」
+定義ファイルを書いて実行すれば Docker で動くアプリケーションがデプロイされる仕組みがあれば、 構成管理もできてよさそうです。 アプリケーション開発者は、定義ファイルを書いて実行することでアプリケーションを実行し、 サーバー管理者は、 Ansible でサーバーを構成管理することで、 アプリケーションとサーバー管理の手段を分離できそうです。
+Nomad を使えば実現できる Docker だけでは解決できていないことに対して、どのようなことができればよいかを考えてみました。 これらは Docker に Nomad というソフトウェアを組み合わせることで、実現できます。
+「Nomad とは」というお話は、別の記事や公式ドキュメントに任せ、 Nomad と Docker を組み合わせることで何ができるのかについて、書いていきます。
+https://www.nomadproject.io
+アーキテクチャ https://learn.hashicorp.com/tutorials/nomad/production-reference-architecture-vm-with-consul#reference-diagram
+緑色の Nomad と書かれているところだけを説明していきます。 ( 赤色の Consul と書かれているところは、今回は気にしないでください。 )</description>
+    </item>
+    
     <item>
       <title>Docker でのアプリケーション実行環境を提供した状況を想像してみる</title>
       <link>/posts/imagine-situation-using-docker/</link>
