@@ -1,6 +1,6 @@
 ---
 title: "コンテナオーケストレーションにて必要になってくるもの"
-date: 2021-12-010T00:00:54+09:00
+date: 2021-12-08T08:05:12+09:00
 ---
 
 [さくらインターネット Advent Calendar 2021](https://qiita.com/advent-calendar/2021/sakura) 8日目の記事になります。
