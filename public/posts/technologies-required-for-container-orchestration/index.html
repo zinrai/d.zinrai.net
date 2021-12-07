@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>コンテナオーケストレーションにて必要になってくるもの | command not found:</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="../../">Home</a></li>
+      
+      <li><a href="../../about/">About</a></li>
+      
+      <li><a href="../../tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">コンテナオーケストレーションにて必要になってくるもの</span></h1>
+
+<h2 class="date">2021/12/08</h2>
+</div>
+
+<main>
+<p><a href="https://qiita.com/advent-calendar/2021/sakura">さくらインターネット Advent Calendar 2021</a> 8日目の記事になります。</p>
+<p><a href="motivation-using-container-orchestration">コンテナオーケストレーションを使うモチベーションを自分なりに考えてみた</a> にて、 Docker を導入するだけでは解決しなかった課題を Nomad と組み合わせることにより解決できそうであるということを説明しました。</p>
+<p>今回は、 Docker と Nomad を組み合わせるだけでは解決できていないことに対して必要になってくる技術について、
+従来のシステム連携がどのようになっているかという話と絡めながら説明します。</p>
+<p>Nomad を使うことで、 Docker を実行できるサーバーを沢山並べてアプリケーションを実行できるようになり、
+アプリケーションとサーバーが密に結合しなくなりました。
+Docker で動くアプリケーションが、どの Nomad Client で起動するのかは、
+Nomad Server が管理しているため、人間にはコントロールできません。</p>
+<p>アプリケーションは、他のアプリケーションと連携するというパターンが大部分を占めるのではないかと思います。
+どこかの Nomad Client でアプリケーションが起動しているという状態で、
+どのようにしてアプリケーションにアクセスすればよいでしょうか。</p>
+<h1 id="従来のシステム連携">従来のシステム連携</h1>
+<p>Nomad Client で起動しているアプリケーションにどのようにアクセスするのかの手段を説明する前に、
+従来のシステム連携がどうであるかについて、以下の観点から考えてみます。</p>
+<ul>
+<li>アプリケーションへの接続</li>
+<li>依存関係</li>
+</ul>
+<p>アプリケーションが連携している例になります。</p>
+<p><img src="../../imgs/technologies-required-for-container-orchestration/system-linkage-host.png" alt="従来のシステム連携"></p>
+<h2 id="アプリケーションへの接続">アプリケーションへの接続</h2>
+<p>サーバーに割り当たっている IP アドレスからアプリケーションに接続するというやり方が考えられます。</p>
+<p>IP アドレス以外の方法としては、 DNS を使いサーバーに割り当たっている IP アドレスに名前を付け、
+アプリケーションに接続するというやり方が考えられます。</p>
+<p>どちらのやり方の場合も、サーバーに割り当てられている IP アドレス、
+名前からアプリケーションに接続するという構図になっているのではないかと思います。</p>
+<p>システム連携の主体は、アプリケーションではなく、サーバーにあるように見えます。</p>
+<h2 id="依存関係">依存関係</h2>
+<p>IP アドレス、 DNS などアプリケーションへの接続は、サーバーに紐付いている情報に依存しており、
+アプリケーションに接続するというよりは、あるサーバー上で動いているアプリケーションに接続するという依存関係になっているように見えます。</p>
+<h1 id="従来のやり方でアプリケーションに接続できるか">従来のやり方でアプリケーションに接続できるか</h1>
+<p>どれからの Nomad Client でアプリケーションが起動しているという状況にて、
+従来のシステム連携のやり方が通用するのかについて考えてみます。</p>
+<h2 id="ip-アドレスでアプリケーションに接続する">IP アドレスで、アプリケーションに接続する</h2>
+<p>どの Nomad Client で何のアプリケーションが実行されるかは Nomad Server が決めます。
+IP アドレスで接続したとしても、次の瞬間には別の Nomad Client でアプリケーションが実行されている可能性があるため、
+IP アドレスで、アプリケーションに接続することは難しいように思います。</p>
+<h2 id="dns-でアプリケーションに接続する">DNS で、アプリケーションに接続する</h2>
+<p>アプリケーションが起動しているサーバーの IP アドレスを DNS に登録したとしても、
+次の瞬間には別の Nomad Client でアプリケーションが実行されている可能性があるため、
+DNS で、アプリケーションに接続することは難しいように思います。</p>
+<h1 id="どういったものが必要か">どういったものが必要か</h1>
+<p>従来のシステム連携は、アプリケーションを指しているわけではなく、サーバーを指していると考えます。</p>
+<p>Nomad Client で起動するアプリケーションに接続するためには、
+サーバーではなく、アプリケーションを名前解決する仕組みが必要なのではないかと考えました。</p>
+<p>言うなれば「このサーバーには、このアプリケーションが存在する」ではなく、
+「このアプリケーションは、このサーバーに存在する」という名前解決をする仕組みが必要になるのでないかと考えます。</p>
+<h1 id="consul-を使えば実現できる">Consul を使えば実現できる</h1>
+<p>Nomad に Consul というソフトウェアを組み合わせると、
+「このアプリケーションは、このサーバーに存在する」という名前解決を実現できます。</p>
+<p><a href="https://www.consul.io/">https://www.consul.io/</a></p>
+<h2 id="アーキテクチャ">アーキテクチャ</h2>
+<p><a href="https://learn.hashicorp.com/tutorials/nomad/production-reference-architecture-vm-with-consul#reference-diagram">https://learn.hashicorp.com/tutorials/nomad/production-reference-architecture-vm-with-consul#reference-diagram</a></p>
+<p><img src="../../imgs/motivation-using-container-orchestration/nomad_reference_diagram.png" alt="Reference diagram"></p>
+<p>Consul には様々な機能がありますが、ここでは「このアプリケーションは、このサーバーに存在する」という名前解決ができるという部分のみを説明します。
+Consul についての詳細な内容は、他の方が書かれている記事や公式ドキュメントにお任せしたいと思います。</p>
+<p>Nomad と Consul を組み合わせると、 Nomad Client でアプリケーションが起動すると、
+Nomad が Consul に、どのアプリケーションが、どのサーバーで起動したかという情報を登録します。</p>
+<p><a href="https://www.nomadproject.io/docs/job-specification/service">https://www.nomadproject.io/docs/job-specification/service</a></p>
+<p>Consul に登録されている情報は、 Consul の持つ DNS Interface や HTTP API にて参照できるようになっています。</p>
+<h2 id="dns-interface">DNS Interface</h2>
+<p><a href="https://www.consul.io/docs/discovery/dns">https://www.consul.io/docs/discovery/dns</a></p>
+<p>cerebro というアプリケーションが起動している Nomad Client の IP アドレスが返ってきている例</p>
+<pre><code>root@nomad-client01-dev:~# dig -p 8600 @127.0.0.1 cerebro.service.consul
+
+; &lt;&lt;&gt;&gt; DiG 9.16.22-Debian &lt;&lt;&gt;&gt; -p 8600 @127.0.0.1 cerebro.service.consul
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 61227
+;; flags: qr aa rd; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
+;; WARNING: recursion requested but not available
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;cerebro.service.consul.                IN      A
+
+;; ANSWER SECTION:
+cerebro.service.consul. 0       IN      A       192.168.10.107
+cerebro.service.consul. 0       IN      A       192.168.10.108
+
+;; Query time: 4 msec
+;; SERVER: 127.0.0.1#8600(127.0.0.1)
+;; WHEN: Tue Dec 07 22:59:21 JST 2021
+;; MSG SIZE  rcvd: 83
+
+root@nomad-client01-dev:~#
+</code></pre><h2 id="http-api">HTTP API</h2>
+<p><a href="https://www.consul.io/api/catalog.html">https://www.consul.io/api/catalog.html</a></p>
+<p>cerebro というアプリケーションが起動している Nomad Client の IP アドレスが返ってきている例</p>
+<pre><code>$ curl 192.168.10.107:8500/v1/catalog/service/cerebro | jq .
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1869  100  1869    0     0  21988      0 --:--:-- --:--:-- --:--:-- 21988
+[
+  {
+    &quot;ID&quot;: &quot;c0654a60-5722-2a8b-9010-026180f5253e&quot;,
+    &quot;Node&quot;: &quot;nomad-client01-dev&quot;,
+    &quot;Address&quot;: &quot;192.168.10.107&quot;,
+    &quot;Datacenter&quot;: &quot;dc1&quot;,
+    &quot;TaggedAddresses&quot;: {
+      &quot;lan&quot;: &quot;192.168.10.107&quot;,
+      &quot;lan_ipv4&quot;: &quot;192.168.10.107&quot;,
+      &quot;wan&quot;: &quot;192.168.10.107&quot;,
+      &quot;wan_ipv4&quot;: &quot;192.168.10.107&quot;
+    },
+    &quot;NodeMeta&quot;: {
+      &quot;consul-network-segment&quot;: &quot;&quot;
+    },
+    &quot;ServiceKind&quot;: &quot;&quot;,
+    &quot;ServiceID&quot;: &quot;_nomad-task-2e81934f-3fd7-1fd6-9339-5ae120e1f314-group-cerebro-cerebro-http&quot;,
+    &quot;ServiceName&quot;: &quot;cerebro&quot;,
+    &quot;ServiceTags&quot;: [
+      &quot;traefik.enable=true&quot;,
+      &quot;traefik.tags=service&quot;,
+      &quot;traefik.frontend.rule=PathPrefixStrip:/cerebro/&quot;
+    ],
+    &quot;ServiceAddress&quot;: &quot;192.168.10.107&quot;,
+    &quot;ServiceTaggedAddresses&quot;: {
+      &quot;lan_ipv4&quot;: {
+        &quot;Address&quot;: &quot;192.168.10.107&quot;,
+        &quot;Port&quot;: 24623
+      },
+      &quot;wan_ipv4&quot;: {
+        &quot;Address&quot;: &quot;192.168.10.107&quot;,
+        &quot;Port&quot;: 24623
+      }
+    },
+    &quot;ServiceWeights&quot;: {
+      &quot;Passing&quot;: 1,
+      &quot;Warning&quot;: 1
+    },
+    &quot;ServiceMeta&quot;: {
+      &quot;external-source&quot;: &quot;nomad&quot;
+    },
+    &quot;ServicePort&quot;: 24623,
+    &quot;ServiceEnableTagOverride&quot;: false,
+    &quot;ServiceProxy&quot;: {
+      &quot;MeshGateway&quot;: {},
+      &quot;Expose&quot;: {}
+    },
+    &quot;ServiceConnect&quot;: {},
+    &quot;CreateIndex&quot;: 5059,
+    &quot;ModifyIndex&quot;: 5059
+  },
+  {
+    &quot;ID&quot;: &quot;9fe2da3b-8448-faeb-593a-47e2d9446769&quot;,
+    &quot;Node&quot;: &quot;nomad-client02-dev&quot;,
+    &quot;Address&quot;: &quot;192.168.10.108&quot;,
+    &quot;Datacenter&quot;: &quot;dc1&quot;,
+    &quot;TaggedAddresses&quot;: {
+      &quot;lan&quot;: &quot;192.168.10.108&quot;,
+      &quot;lan_ipv4&quot;: &quot;192.168.10.108&quot;,
+      &quot;wan&quot;: &quot;192.168.10.108&quot;,
+      &quot;wan_ipv4&quot;: &quot;192.168.10.108&quot;
+    },
+    &quot;NodeMeta&quot;: {
+      &quot;consul-network-segment&quot;: &quot;&quot;
+    },
+    &quot;ServiceKind&quot;: &quot;&quot;,
+    &quot;ServiceID&quot;: &quot;_nomad-task-3072b120-3e79-79db-16f4-5f2726d1d057-group-cerebro-cerebro-http&quot;,
+    &quot;ServiceName&quot;: &quot;cerebro&quot;,
+    &quot;ServiceTags&quot;: [
+      &quot;traefik.enable=true&quot;,
+      &quot;traefik.tags=service&quot;,
+      &quot;traefik.frontend.rule=PathPrefixStrip:/cerebro/&quot;
+    ],
+    &quot;ServiceAddress&quot;: &quot;192.168.10.108&quot;,
+    &quot;ServiceTaggedAddresses&quot;: {
+      &quot;lan_ipv4&quot;: {
+        &quot;Address&quot;: &quot;192.168.10.108&quot;,
+        &quot;Port&quot;: 31601
+      },
+      &quot;wan_ipv4&quot;: {
+        &quot;Address&quot;: &quot;192.168.10.108&quot;,
+        &quot;Port&quot;: 31601
+      }
+    },
+    &quot;ServiceWeights&quot;: {
+      &quot;Passing&quot;: 1,
+      &quot;Warning&quot;: 1
+    },
+    &quot;ServiceMeta&quot;: {
+      &quot;external-source&quot;: &quot;nomad&quot;
+    },
+    &quot;ServicePort&quot;: 31601,
+    &quot;ServiceEnableTagOverride&quot;: false,
+    &quot;ServiceProxy&quot;: {
+      &quot;MeshGateway&quot;: {},
+      &quot;Expose&quot;: {}
+    },
+    &quot;ServiceConnect&quot;: {},
+    &quot;CreateIndex&quot;: 5060,
+    &quot;ModifyIndex&quot;: 5060
+  }
+]
+</code></pre><h2 id="consul-を使った-http-エンドポイント生成">Consul を使った HTTP エンドポイント生成</h2>
+<p>HTTP reverse proxy や load balancer として機能する Traefik というソフトウェアは、
+Consul に登録されている情報を参照し、エンドポイントを生成する機能を持っています。</p>
+<p><a href="https://doc.traefik.io/traefik/v1.7/configuration/backends/consulcatalog/">https://doc.traefik.io/traefik/v1.7/configuration/backends/consulcatalog/</a></p>
+<p>Nomad の Job に Traefik で生成したいエンドポイントを設定し、 Job を実行すると Consul に登録され、
+Traefik は Consul の情報を参照し、エンドポイントを生成することで、
+Nomad Client で起動しているアプリケーションに Traefik 経由で接続するということができたりします。</p>
+<h1 id="consul-により実現できたこと">Consul により実現できたこと</h1>
+<p>Nomad に Consul を組み合わせることで、「このアプリケーションは、このサーバーに存在する」という名前解決が可能になり、
+Nomad Client で起動しているアプリケーションへ接続できるようになりました。</p>
+<p>この名前解決で利用する名前は、サービスと呼ばれています。
+「サービス」というレイヤーにてアプリケーションに接続しているところが、
+従来のサーバーに紐付いた情報からアプリケーションに接続するシステム連携とは異なる概念となります。</p>
+<p>Docker を使うと何がうれしいのか、 Docker だけでは解決できないことがあり、
+コンテナオーケストレーションが存在するというような流れで、4回にわたって書いてきました。
+この話は、今回で終わりになります。感想、フィードバックなど Twitter にいただけるとうれしいです。</p>
+
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+

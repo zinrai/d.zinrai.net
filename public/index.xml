@@ -6,7 +6,28 @@
     <description>Recent content on command not found:</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 06 Dec 2021 10:26:12 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 08 Dec 2021 08:05:12 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>コンテナオーケストレーションにて必要になってくるもの</title>
+      <link>/posts/technologies-required-for-container-orchestration/</link>
+      <pubDate>Wed, 08 Dec 2021 08:05:12 +0900</pubDate>
+      
+      <guid>/posts/technologies-required-for-container-orchestration/</guid>
+      <description>さくらインターネット Advent Calendar 2021 8日目の記事になります。
+コンテナオーケストレーションを使うモチベーションを自分なりに考えてみた にて、 Docker を導入するだけでは解決しなかった課題を Nomad と組み合わせることにより解決できそうであるということを説明しました。
+今回は、 Docker と Nomad を組み合わせるだけでは解決できていないことに対して必要になってくる技術について、 従来のシステム連携がどのようになっているかという話と絡めながら説明します。
+Nomad を使うことで、 Docker を実行できるサーバーを沢山並べてアプリケーションを実行できるようになり、 アプリケーションとサーバーが密に結合しなくなりました。 Docker で動くアプリケーションが、どの Nomad Client で起動するのかは、 Nomad Server が管理しているため、人間にはコントロールできません。
+アプリケーションは、他のアプリケーションと連携するというパターンが大部分を占めるのではないかと思います。 どこかの Nomad Client でアプリケーションが起動しているという状態で、 どのようにしてアプリケーションにアクセスすればよいでしょうか。
+従来のシステム連携 Nomad Client で起動しているアプリケーションにどのようにアクセスするのかの手段を説明する前に、 従来のシステム連携がどうであるかについて、以下の観点から考えてみます。
+ アプリケーションへの接続 依存関係  アプリケーションが連携している例になります。
+アプリケーションへの接続 サーバーに割り当たっている IP アドレスからアプリケーションに接続するというやり方が考えられます。
+IP アドレス以外の方法としては、 DNS を使いサーバーに割り当たっている IP アドレスに名前を付け、 アプリケーションに接続するというやり方が考えられます。
+どちらのやり方の場合も、サーバーに割り当てられている IP アドレス、 名前からアプリケーションに接続するという構図になっているのではないかと思います。
+システム連携の主体は、アプリケーションではなく、サーバーにあるように見えます。
+依存関係 IP アドレス、 DNS などアプリケーションへの接続は、サーバーに紐付いている情報に依存しており、 アプリケーションに接続するというよりは、あるサーバー上で動いているアプリケーションに接続するという依存関係になっているように見えます。
+従来のやり方でアプリケーションに接続できるか どれからの Nomad Client でアプリケーションが起動しているという状況にて、 従来のシステム連携のやり方が通用するのかについて考えてみます。</description>
+    </item>
+    
     <item>
       <title>コンテナオーケストレーションを使うモチベーションを自分なりに考えてみた</title>
       <link>/posts/motivation-using-container-orchestration/</link>

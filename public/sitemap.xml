@@ -3,10 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/</loc>
-    <lastmod>2021-12-06T10:26:12+09:00</lastmod>
+    <lastmod>2021-12-08T08:05:12+09:00</lastmod>
   </url><url>
     <loc>/posts/</loc>
-    <lastmod>2021-12-06T10:26:12+09:00</lastmod>
+    <lastmod>2021-12-08T08:05:12+09:00</lastmod>
+  </url><url>
+    <loc>/posts/technologies-required-for-container-orchestration/</loc>
+    <lastmod>2021-12-08T08:05:12+09:00</lastmod>
   </url><url>
     <loc>/posts/motivation-using-container-orchestration/</loc>
     <lastmod>2021-12-06T10:26:12+09:00</lastmod>
