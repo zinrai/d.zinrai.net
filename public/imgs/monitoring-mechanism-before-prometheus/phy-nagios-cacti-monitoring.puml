@@ -1,0 +1,33 @@
+@startuml
+
+cloud "連携システム"
+
+node "エンドポイント" as endpoint {
+	[Nginx]
+}
+
+node "Server" as nagios-server {
+	[nagios-registrator]
+	[Nagios]
+	frame "Nagios Plugin" {
+		[check_hogehoge]
+	}
+	[Nagios] -down-> [check_hogehoge]
+}
+
+node "Server" as cacti-server {
+	[cacti-registrator]
+	[Cacti]
+}
+
+連携システム -down-> [Nginx]
+[Nginx] -down-> [nagios-registrator]
+[nagios-registrator] -> [Nagios]
+[check_hogehoge] -down-> [物理サーバー]
+[check_hogehoge] -down-> [スイッチ]
+[Nginx] -down-> [cacti-registrator]
+[cacti-registrator] -> [Cacti]
+[Cacti] -down-> [物理サーバー]
+[Cacti] -down-> [スイッチ]
+
+@enduml

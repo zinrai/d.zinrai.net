@@ -6,7 +6,26 @@
     <description>Recent content on command not found:</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 08 Dec 2021 08:05:12 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 Dec 2021 13:32:10 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Prometheus 以前のモニタリングの仕組みを考察してみる</title>
+      <link>/posts/monitoring-mechanism-before-prometheus/</link>
+      <pubDate>Thu, 09 Dec 2021 13:32:10 +0900</pubDate>
+      
+      <guid>/posts/monitoring-mechanism-before-prometheus/</guid>
+      <description>さくらインターネット Advent Calendar 2021 9日目の記事になります。
+Prometheus を知っているでしょうか。 近年、モニタリングを賑わせているソフトウェアになります。
+Prometheus についての内容、 Prometheus の設定方法、どのような Exporter があり、 どのように使うのかという記事は、インターネット上でたくさん目にしましたが、 従来のモニタリングの仕組みと比べ、 Prometheus がどのような点で異なっており、 その異なる部分がモニタリングにどのように生きてくるのかということを書いた記事は見掛けたことはありません。
+自分なりに Prometheus 以前のモニタリングの仕組みはどうであるかを考察し、 Prometheus がイケてるという理由で使われているのではなく、 従来のモニタリングの仕組みと比べて、 Prometheus を使うと何がうれしいのかということを書いていけたらと思っています。
+今回は、 Prometheus 以前のモニタリングの仕組みはどうであるか考察し、「さくらの専用サーバ PHY」に適用するとどうなりそうかについて考えてみます。
+従来のモニタリングの仕組み モニタリングには、システムの異常に気が付き対応できるようにするための死活監視、 アラートが上がったときなどにシステムのリソースなどを時系列で確認するためのシステムが存在しているはずです。
+下記の観点から従来のモニタリングの仕組みがどうであるかについて考察してみます。
+ 対象の追加・削除 ストレージ インタフェース スケールアウト  Nagios , Cacti を従来のモニタリングの仕組みとして考察します。
+Nagios でのモニタリング Cacti でのモニタリング 対象の追加・削除 モニタリングしたい対象のサーバーが1台あったと仮定して、 モニタリングのため、死活監視を Nagios に登録し、グラフを Cacti に登録するなど、 それぞれのシステムごとにモニタリングの対象を登録していかなければなりません。
+Nagios, Cacti ともに IPAM などと連携し対象を登録していくという仕組みはなく、 対象の追加・削除は手動で行うことになります。 「対象の追加・削除を自動化したい」となったときには、そのための仕組みを開発する必要がありそうです。
+ストレージ 死活監視のデータは Nagios に保存され、 グラフのためのデータは Cacti に保存されるため、 システムごとにストレージが異っています。</description>
+    </item>
+    
     <item>
       <title>コンテナオーケストレーションにて必要になってくるもの</title>
       <link>/posts/technologies-required-for-container-orchestration/</link>

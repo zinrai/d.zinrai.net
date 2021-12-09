@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prometheus 以前のモニタリングの仕組みを考察してみる | command not found:</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="../../">Home</a></li>
+      
+      <li><a href="../../about/">About</a></li>
+      
+      <li><a href="../../tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Prometheus 以前のモニタリングの仕組みを考察してみる</span></h1>
+
+<h2 class="date">2021/12/09</h2>
+</div>
+
+<main>
+<p><a href="https://qiita.com/advent-calendar/2021/sakura">さくらインターネット Advent Calendar 2021</a> 9日目の記事になります。</p>
+<p><a href="https://prometheus.io/">Prometheus</a> を知っているでしょうか。
+近年、モニタリングを賑わせているソフトウェアになります。</p>
+<p>Prometheus についての内容、 Prometheus の設定方法、どのような Exporter があり、
+どのように使うのかという記事は、インターネット上でたくさん目にしましたが、
+従来のモニタリングの仕組みと比べ、 Prometheus がどのような点で異なっており、
+その異なる部分がモニタリングにどのように生きてくるのかということを書いた記事は見掛けたことはありません。</p>
+<p>自分なりに Prometheus 以前のモニタリングの仕組みはどうであるかを考察し、
+Prometheus がイケてるという理由で使われているのではなく、
+従来のモニタリングの仕組みと比べて、 Prometheus を使うと何がうれしいのかということを書いていけたらと思っています。</p>
+<p>今回は、 Prometheus 以前のモニタリングの仕組みはどうであるか考察し、「さくらの専用サーバ PHY」に適用するとどうなりそうかについて考えてみます。</p>
+<h1 id="従来のモニタリングの仕組み">従来のモニタリングの仕組み</h1>
+<p>モニタリングには、システムの異常に気が付き対応できるようにするための死活監視、
+アラートが上がったときなどにシステムのリソースなどを時系列で確認するためのシステムが存在しているはずです。</p>
+<p>下記の観点から従来のモニタリングの仕組みがどうであるかについて考察してみます。</p>
+<ul>
+<li>対象の追加・削除</li>
+<li>ストレージ</li>
+<li>インタフェース</li>
+<li>スケールアウト</li>
+</ul>
+<p><a href="https://www.nagios.org/">Nagios</a> , <a href="https://www.cacti.net/">Cacti</a>
+を従来のモニタリングの仕組みとして考察します。</p>
+<h2 id="nagios-でのモニタリング">Nagios でのモニタリング</h2>
+<p><img src="../../imgs/monitoring-mechanism-before-prometheus/nagios-monitoring.png" alt="Nagios"></p>
+<h2 id="cacti-でのモニタリング">Cacti でのモニタリング</h2>
+<p><img src="../../imgs/monitoring-mechanism-before-prometheus/cacti-monitoring.png" alt="Cacti"></p>
+<h2 id="対象の追加削除">対象の追加・削除</h2>
+<p>モニタリングしたい対象のサーバーが1台あったと仮定して、
+モニタリングのため、死活監視を Nagios に登録し、グラフを Cacti に登録するなど、
+それぞれのシステムごとにモニタリングの対象を登録していかなければなりません。</p>
+<p>Nagios, Cacti ともに IPAM などと連携し対象を登録していくという仕組みはなく、
+対象の追加・削除は手動で行うことになります。
+「対象の追加・削除を自動化したい」となったときには、そのための仕組みを開発する必要がありそうです。</p>
+<h2 id="ストレージ">ストレージ</h2>
+<p>死活監視のデータは Nagios に保存され、
+グラフのためのデータは Cacti に保存されるため、
+システムごとにストレージが異っています。</p>
+<p>HTTP API を介してストレージのデータにアクセスするという手段は無く、
+それぞれが決めた形式にてデータを持っているため、
+結果として保存されているデータは、そのシステムでしか使えないという状況となっています。</p>
+<h2 id="インタフェース">インタフェース</h2>
+<p>Nagios では、なんらかのチェックを実行し、結果を Nagios に返すプログラムは、 Nagios プラグインと呼ばれています。
+図にある check_http は、対象の HTTP に関連するチェックを実行し、その結果を Nagios に返し、
+check_icmp は、対象に ICMP を送り、その結果を Nagios に返します。</p>
+<p>Nagios は、 <a href="https://nagios-plugins.org/doc/guidelines.html#AEN78">リターンコード</a> によって Warning, Critical を発砲する仕組みとなっています。
+<a href="https://nagios-plugins.org/doc/guidelines.html#AEN78">リターンコード</a> に沿っていれば、自作の監視コマンドを Nagios に組み込むことが可能になっています。
+<a href="https://nagios-plugins.org/doc/guidelines.html#AEN78">リターンコード</a> により、 Nagios と Nagios プラグインの連携がネットワークを超えられないという制約を受ける形となっています。
+( <a href="https://github.com/NagiosEnterprises/nrpe">NRPE</a> を使えば、ネットワークを越えられますが、今回は Nagios 単体で見たときにということにしています。 )</p>
+<p>Cacti も Nagios のそれそれが持つインタフェースが異なるため、
+何かの値をもとにアラートを発砲したい要件があったとすると、
+Nagios の場合は、 Nagios のインタフェース、 Cacti の場合は Cacti のインタフェースで実装することになります。</p>
+<h2 id="スケールアウト">スケールアウト</h2>
+<p><a href="https://nagios-plugins.org/doc/guidelines.html#AEN78">リターンコード</a> により、
+Nagios と Nagios プラグインの連携がネットワークを超えられないため、
+Nagios の性能限界に達したときには、 Nagios と Nagios プラグインがセットになったサーバーを1台追加するという形をとることになります。</p>
+<p>Nagios の数だけ、 Nagios プラグインをセットアップする必要があるため、
+管理する Nagios の数が多いほど Nagios や Nagios プラグインを管理するコストは増えていきます。</p>
+<h1 id="さくらの専用サーバ-phy-での利用を考えてみる">さくらの専用サーバ PHY での利用を考えてみる</h1>
+<p>従来のモニタリングの仕組みとして Nagios, Cacti を取り上げ、考察してみました。
+これらをふまえて、「さくらの専用サーバ PHY」にて、
+Nagios, Cacti を使った場合のモニタリングがどうなりそうか考えてみます。</p>
+<h2 id="ユーザーが利用している機器のモニタリング">ユーザーが利用している機器のモニタリング</h2>
+<p>ユーザーに物理サーバーを提供しているサービスで、
+物理サーバーの異常をモニタリングする必要があります。
+物理サーバーは数百台、数千台と利用者の増加に合わせて増えていきます。
+物理サーバーに接続するスイッチも、サーバーの台数によって増加していきます。</p>
+<p>Nagios, Cacti に、いつ、誰が物理サーバー、スイッチのモニタリングを追加するか考えてみます。</p>
+<p>手動でやるとどうなるでしょうか。
+営業日にモニタリングの設定をしましょうか、
+一日に何件やることになりでしょうか、
+それだけやって営業時間が終わる日がありますかね。
+人間がオペレーションの一部に組み込まれるのは辛そうです。
+エンジニアリングで解決してみたいと思います。</p>
+<p>エンドポイントを公開し、システム連携できるようにしてみます。
+Nagios , Cacti に HTTP API は無いので、登録するためのアプリケーションを作り、
+そのアプリケーションがリクエストを受け、 Nagios , Cacti に対象を登録するという構成になりそうです。</p>
+<p><img src="../../imgs/monitoring-mechanism-before-prometheus/phy-nagios-cacti-monitoring.png" alt="Monitoring"></p>
+<p>利用を開始するユーザーもいれば、終了するユーザーもいるはずです。
+アプリケーションには、登録だけではなく、削除する機能も必要そうです。
+物理サーバーのメモリが故障したときなどには、物理サーバーを停止し、交換する作業が発生します。</p>
+<p>Nagios でモニタリングしたままでは、アラートが発砲されるため、メンテナンスを制御するための機能も、
+アプリケーションに必要そうです。</p>
+<h2 id="サービス提供のために動いているアプリケーションのモニタリング">サービス提供のために動いているアプリケーションのモニタリング</h2>
+<p>モニタリングする対象は、ユーザーに提供している機器だけではありません。
+サービスを提供するために動かしているアプリケーションもモニタリングの対象です。</p>
+<p>コンテナオーケストレーションを利用している場合のモニタリングはどうなるでしょうか。
+<a href="posts/motivation-using-container-orchestration">コンテナオーケストレーションを使うモチベーションを自分なりに考えてみた</a> に出てきた Nomad を使いアプリケーション実行環境を構成している場合は、
+モニタリングの対象が、次の瞬間には別のサーバーで実行されている可能性があります。</p>
+<p><a href="posts/technologies-required-for-container-orchestration">コンテナオーケストレーションにて必要になってくるもの</a> に出てきた Consul からモニタリングの対象を特定し、
+Nagios, Cacti を更新するというアプリケーションを作って、モニタリングの対象を更新していくという手はありそうです。</p>
+<h2 id="ユーザーへのトラフィックグラフの提供">ユーザーへのトラフィックグラフの提供</h2>
+<p>「さくらの専用サーバ PHY」では、
+物理サーバーのインタフェースからどのくらい通信をしているのか、
+ユーザーが、コントロールパネルからグラフで確認できるようにするという要件がありました。</p>
+<p>Cacti は MySQL に取得したデータを保存しています。
+Cacti にトラフィックの値が格納されていると仮定して、
+MySQL に保存されているデータを返す Web API サーバーを作るとトラフィックグラフをユーザーに提供できそうです。</p>
+<p><img src="../../imgs/monitoring-mechanism-before-prometheus/phy-cacti-traffic-graph.png" alt="Traffic"></p>
+<p>Nagios, Cacti で「さくらの専用サーバ PHY」をモニタリングしようとすると結構いろいろアプリケーションを作らなければならないなということが見えてきました。</p>
+<p>これらをふまえて、次回は、従来のモニタリングの仕組みと比べて、 Prometheus を使うと何がうれしいのかということを考えてみます。</p>
+
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+
