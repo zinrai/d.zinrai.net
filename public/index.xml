@@ -6,7 +6,16 @@
     <description>Recent content on command not found:</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 09 Dec 2021 13:32:10 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 Dec 2021 23:05:45 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Prometheus を使うと何がうれしいのか自分なりに考えてみた</title>
+      <link>/posts/motivation-use-prometheus/</link>
+      <pubDate>Thu, 09 Dec 2021 23:05:45 +0900</pubDate>
+      
+      <guid>/posts/motivation-use-prometheus/</guid>
+      <description>さくらインターネット Advent Calendar 2021 11日目の記事になります。</description>
+    </item>
+    
     <item>
       <title>Prometheus 以前のモニタリングの仕組みを考察してみる</title>
       <link>/posts/monitoring-mechanism-before-prometheus/</link>
