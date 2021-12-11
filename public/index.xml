@@ -6,14 +6,21 @@
     <description>Recent content on command not found:</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 09 Dec 2021 23:05:45 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 11 Dec 2021 10:05:45 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Prometheus を使うと何がうれしいのか自分なりに考えてみた</title>
       <link>/posts/motivation-use-prometheus/</link>
-      <pubDate>Thu, 09 Dec 2021 23:05:45 +0900</pubDate>
+      <pubDate>Sat, 11 Dec 2021 10:05:45 +0900</pubDate>
       
       <guid>/posts/motivation-use-prometheus/</guid>
-      <description>さくらインターネット Advent Calendar 2021 11日目の記事になります。</description>
+      <description>さくらインターネット Advent Calendar 2021 11日目の記事になります。
+Prometheus 以前のモニタリングの仕組みを考察してみる では、 Nagios, Cacti を例に Prometheus 以前のモニタリングの仕組みはどのようになっているかを考察し、 Nagios, Cacti で「さくらの専用サーバ PHY」のモニタリングを実装するとどうなりそうであるかを考え、 「けっこうアプリケーションを作ら作らなければならないな」ということが見えてきました。
+今回は、 Prometheus を使うと、どのようなモニタリングの基盤を構成可能であるかを考察し、 Prometheus を使うと何がうれしいのかを考えてみます。
+用語 Prometheus の話をするにあたり、知っておかなければ話を進められない用語について説明します。
+メトリクス Prometheus は、下記のような形式にて対象の情報を取得し、メトリクスを呼ばれています。
+メモリ利用量のメトリクスの例
+# HELP node_memory_MemAvailable_bytes Memory information field MemAvailable_bytes. # TYPE node_memory_MemAvailable_bytes gauge node_memory_MemAvailable_bytes 6.2036496384e+10 Exporter エクスポーターと呼びます。 Prometheus にメトリクスを保存するためには、 Prometheus が保存できる形式のメトリクスを HTTP として公開する必要があります。 この機能を持ったアプリケーションを Exporter と呼んでいます。 Prometheus にメトリクスを保存するためには Exporter が必須となります。
+Prometheus でのモニタリング Prometheus 以前のモニタリングの仕組みを考察してみる では、 Nagios, Cacti にて「さくらの専用サーバ PHY」のモニタリングを考察しました。 今回は、 Prometheus を使った場合の「さくらの専用サーバ PHY」のモニタリングを考察します。</description>
     </item>
     
     <item>
