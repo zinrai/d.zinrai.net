@@ -109,7 +109,7 @@ https://prometheus.io/docs/prometheus/latest/querying/api/#range-queries
 
 [Prometheus 以前のモニタリングの仕組みを考察してみる](posts/monitoring-mechanism-before-prometheus) では、
 Nagios, Cacti を例に、4つの観点で考察しました。
-「 Prometheus でのモニタリング」では、どうであるかについて考察してみます。
+Prometheus でのモニタリングでは、どうであるかについて考察してみます。
 
 ## 対象の追加・削除
 
@@ -156,4 +156,4 @@ Prometheus を利用したモニタリングの仕組みでは、
 Prometheus 以前のモニタリングの仕組みがどうなっており、
 Prometheus を使うと何がうれしいのかをイメージしてもらえたでしょうか。
 Exporter についての踏み込んだ説明はしていないため、
-次回は、どのような役割を持った Exporter を分類しながら説明していきます。
+次回は、どのような役割を持った Exporter があるのかを分類しながら説明していきます。
