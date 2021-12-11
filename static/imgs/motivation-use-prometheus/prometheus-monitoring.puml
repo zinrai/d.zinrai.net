@@ -1,0 +1,48 @@
+@startuml
+
+cloud "連携システム"
+cloud "コントロールパネル"
+
+node "Server" as RegisterServer {
+	[register-api]
+	[Consul Client] as RegisterConsulClient
+}
+
+node "Server" as ConsulServer {
+	[Consul Server]
+}
+
+node "Server" as PrometheusServer {
+	[Prometheus]
+	[Consul Client] as PrometheusConsulClient
+
+	[Prometheus] -right-> PrometheusConsulClient
+}
+
+node "Server" as PromxyServer {
+	[Promxy]
+}
+
+node "Server" as AlertmanagerServer {
+	[Alertmanager]
+}
+
+node "Server" as GrafanaServer {
+	[Grafana]
+}
+
+連携システム -down-> [register-api] :HTTP
+[register-api] -down-> RegisterConsulClient :HTTP
+RegisterConsulClient -down-> [Consul Server]
+コントロールパネル -down-> [graph-api] :HTTP
+[graph-api] -down-> [Prometheus] :HTTP
+PrometheusConsulClient -> [Consul Server]
+[Grafana] -up-> [Prometheus] : HTTP
+[Prometheus] -down-> [Exporter] : HTTP
+[Exporter] -down-> [アプリケーション]
+[Exporter] -down-> [物理サーバー]
+[Exporter] -down-> [スイッチ]
+[Promxy] -up-> [Prometheus] : HTTP
+[Promxy] -down-> [Alertmanager]
+
+@enduml
