@@ -6,7 +6,22 @@
     <description>Recent content on command not found:</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 11 Dec 2021 10:05:45 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Dec 2021 09:07:00 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Prometheus の Exporter を自分なりに分類してみた</title>
+      <link>/posts/classify-prometheus-exporter/</link>
+      <pubDate>Sun, 12 Dec 2021 09:07:00 +0900</pubDate>
+      
+      <guid>/posts/classify-prometheus-exporter/</guid>
+      <description>さくらインターネット Advent Calendar 2021 12日目の記事になります。
+Prometheus を使うと何がうれしいのか自分なりに考えてみた にて、 Prometheus ではどのようなモニタリングを実現でき、従来のモニタリングの仕組みと比べてのうれしい部分について考えてみました。
+Prometheus では、 Exporter を使い対象のメトリクスを取得するということを説明しました。 Exporter がどのようなものであるかを説明したあと、 すぐに ○○ Exporter の使い方というような流れであったり、 特定の Exporter の使い方という記事はよく見掛けます。
+対象のメトリクスを取得するために、 どのような Exporter の構成があるのかを説明した記事は見掛けたことが無く、 Prometheus と Exporter の結び付きをイメージするためには必要なのではないかと常日頃から思っていたので、 そこに対する自分の考えを書いてみます。
+Exporter の構成 対象のメトリクスを取得するためにとる Exporter の構成は、下記の3つになるのではないかと考えています。 Sidecar exporter, Native exporter, Proxy exporter という名前は、 説明のために、私が作ったものであり、 Prometheus で使われている一般的な用語ではありません。 Prometheus でメトリクスを管理するためには、 Prometheus の保存できる形式でメトリクスを生成し、 HTTP のエンドポイントを公開することが必須であるという前提のもと、 これらについて、どのような構成をとり、どう考え名前を付けたのかについて説明します。
+Native exporter Apache のメトリクスを Prometheus で管理したいとなったときに、 Apache 自体は、 Exporter を持っていないため、 そのままでは、 Apache のメトリクスを Prometheus で管理できません。
+Prometheus が保存できる形式でメトリクスを返すことができる機能を、 ソフトウェア自体に組み込んでいる Exporter を Native exporter と呼んでみました。</description>
+    </item>
+    
     <item>
       <title>Prometheus を使うと何がうれしいのか自分なりに考えてみた</title>
       <link>/posts/motivation-use-prometheus/</link>
