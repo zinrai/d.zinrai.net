@@ -1,0 +1,15 @@
+@startuml
+
+[Prometheus] as prometheus1
+[Prometheus] as prometheus2
+[Prometheus] as prometheus3
+
+[コントロールパネル] -down-> [Graph API]
+[Graph API] -down-> [Promxy]
+[Promxy] -down-> prometheus1
+[Promxy] -down-> prometheus2
+[Promxy] -down-> prometheus3
+[Grafana] -down-> [Promxy]
+[Promxy] -up-> [Alertmanager]
+
+@enduml
