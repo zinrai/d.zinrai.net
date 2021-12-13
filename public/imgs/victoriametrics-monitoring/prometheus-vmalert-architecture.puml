@@ -1,0 +1,25 @@
+@startuml
+
+package "VictoriaMetrics" {
+	[vmstorage]
+	[vmselect]
+	[vminsert]
+	[vmalert]
+}
+
+[Prometheus] as prometheus1
+[Prometheus] as prometheus2
+[Prometheus] as prometheus3
+
+[コントロールパネル] -down-> [Graph API]
+[Graph API] -down-> [vmselect]
+[Grafana] -down-> [vmselect]
+[vmselect] -down-> [vmstorage]
+prometheus1 -up-> [vminsert]
+prometheus2 -up-> [vminsert]
+prometheus3 -up-> [vminsert]
+[vminsert] -> [vmstorage]
+[vmalert] -> [vmselect]
+[vmalert] -up-> [Alertmanager]
+
+@enduml

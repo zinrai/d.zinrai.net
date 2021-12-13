@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VectoriaMetrics を使ったメトリクス管理基盤 | command not found:</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="../../">Home</a></li>
+      
+      <li><a href="../../about/">About</a></li>
+      
+      <li><a href="../../tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">VectoriaMetrics を使ったメトリクス管理基盤</span></h1>
+
+<h2 class="date">2021/12/13</h2>
+</div>
+
+<main>
+<p><a href="https://qiita.com/advent-calendar/2021/sakura">さくらインターネット Advent Calendar 2021</a> 13日目の記事になります。</p>
+<p>今日は、「さくらの専用サーバ PHY」にてメトリクス管理の基盤に、
+<a href="https://victoriametrics.com/">VictoriaMetrics</a> を使っているという話を書いていきます。</p>
+<p>VictoriaMetrics のアーキテクチャやコンポーネントについての詳しい説明は、
+<a href="https://docs.victoriametrics.com/Cluster-VictoriaMetrics.html#architecture-overview">公式ドキュメント</a> や、
+他の記事にお任せし、「さくらの専用サーバ PHY」のメトリクス管理の基盤が、どのような構成ではじまり、
+現在どうなっているのか、これからどうしていこうと考えているのかについて書いていきます。</p>
+<h1 id="2020年7月時点の構成">2020年7月時点の構成</h1>
+<p><img src="../../imgs/victoriametrics-monitoring/prometheus-promxy-architecture.png" alt="Promxyを使った構成"></p>
+<p>「さくらの専用サーバ PHY」提供開始時のメトリクス管理・監視基盤の構成になります。</p>
+<p><a href="posts/promxy-architecture">Promxy を使ったアーキテクチャ</a> より、
+Promxy にリクエストすることで、 Prometheus のメトリクスにアクセスする構成をとっています。</p>
+<p>30日ぶんのトラフィックグラフをユーザーに提供するため、
+Prometheus には30日ぶんのメトリクスを保存するようにしています。</p>
+<p>Prometheus には remote write という機能があり、
+取得したメトリクスを別のストレージに転送することが可能になっています。
+長期的なメトリクスを保存する場合は、 Prometheus に保存するのではなく、
+Prometheus の remote write を使い、
+長期保存のためのストレージを使う構成をとることを推奨しています。</p>
+<p><a href="https://prometheus.io/docs/operating/integrations/#remote-endpoints-and-storage">https://prometheus.io/docs/operating/integrations/#remote-endpoints-and-storage</a></p>
+<p>このタイミングでは、
+サービスを支えるシステム基盤のメトリクスをどのように管理するのか、
+ユーザーに提供している機器をどのようにメトリクス管理するのか、
+複数台ある Prometheus のメトリクスをどのように参照するのか、
+というようなところを検証、実装していたところで、サービスの提供開始となりました。</p>
+<p>長期的なメトリクスを保存するためのストレージを検証、導入する時間を確保できなかったため、
+Promxy をエンドポイントに Prometheus のメトリクスにアクセスする構成をとりました。</p>
+<p>利用者の増加とともに Prometheus は追加されていきます。
+Promxy をエンドポイントに Prometheus のメトリクスにアクセスする構成で、
+どこまでスケールできるのか未知のまま運用している状態でした。</p>
+<p>Promxy が、 Grafana へのエンドポイント、ユーザーのトラフィックグラフへのエンドポイント、
+アラート発砲と3つのサービスを提供しており、ダウンした場合の影響が大きいところも自分の中で引っ掛かっていました。</p>
+<p>このまま運用し続けるのではなく、 Prometheus の remote write を使い、
+推奨されている長期的なメトリクスを保存するストレージを使う構成にすることで、
+Promxy から Prometheus のメトリクスを返すというサービスを減らし、ダウンした場合の影響を減らす、
+スケールすることを考慮しているミドルウェアに移行することで、
+安心して Prometheus をスケールしていきたいということを考えていました。</p>
+<h1 id="2021年7月からの構成">2021年7月からの構成</h1>
+<p><img src="../../imgs/victoriametrics-monitoring/prometheus-victoriametrics-architecture.png" alt="VictoriaMetricsを使った構成"></p>
+<p>Prometheus の remote write 先の長期的なメトリクスを保存するストレージとして VictoriaMetrics を採用しました。</p>
+<p>2021年1月から育児休業を予定しており、
+自身の作り上げたシステム基盤に対するドキュメンテーションや引き継ぎに注力していたため、
+2020年11月から VictoriaMetrics の検証を細々と進め、
+どのように「さくらの専用サーバ PHY」のメトリクス管理基盤に組み込むかまでを設計し、育児休業に入りました。</p>
+<p>2021年4月下旬から復帰し、 VictoriaMetrics を展開し、監視を設定し、切り替えの計画をたて、
+2021年7月から VictoriaMetrics を使ったメトリクス管理の基盤が稼動しはじめました。</p>
+<p>VictoriaMetrics のコンポーネントである vminsert に対して Prometheus は remote write することで、
+VictoriaMetrics のコンポーネントである vmstorage にメトリクスが保存されます。</p>
+<p>VictoriaMetrics のコンポーネントである vmselect をエンドポイントに、
+ユーザーのトラフィックグラフ用のメトリクスを Graph API 経由で返したり、
+Grafana でメトリクスを確認できます。</p>
+<p>VictoriaMetrics は Prometheus と互換性のある HTTP API を提供しているため、
+Graph API, Grafana ともにエンドポイントを切り替えるだけで、移行ができました。</p>
+<p><a href="https://docs.victoriametrics.com/#prometheus-querying-api-usage">https://docs.victoriametrics.com/#prometheus-querying-api-usage</a></p>
+<p>Promxy から Prometheus のメトリクスを返すというサービスを減らすことができ、
+ダウンした場合の影響を減らすことができました。
+Promxy は、アラート発砲のみが、自身の仕事となりました。</p>
+<h1 id="これからどうしていこうと考えているか">これからどうしていこうと考えているか</h1>
+<p><img src="../../imgs/victoriametrics-monitoring/prometheus-vmalert-architecture.png" alt="vmalertを使った構成"></p>
+<p>まだやることは残っています。
+Promxy を使ってのアラート発砲がどのくらいまでスケールするのかは未知です。
+Promxy を使い続ける場合は、 Prometheus のバージョンアップに合わせて、
+Promxy のバージョンアップも必要になってきます。</p>
+<p>VictoriaMetrics には、 <a href="https://docs.victoriametrics.com/vmalert.html">vmalert</a> というコンポーネントがあり、
+メトリクスを評価し、アラートを発砲する機能を持っています。
+vmalert に移行することで、 Promxy の依存関係が無くなり、
+Promxy の依存関係が無くなることで、 Prometheus からメトリクスを取得する依存関係が無くなり、
+Prometheus は、取得したメトリクスを VictoriaMetrics に remote write するという仕事のみになります。</p>
+<p>Prometheus で提供するサービスが減ることで、ダウン時の影響を減らすことができ、
+Prometheus を参照するコンポーネントは無いため、新しいバージョンの Prometheus を remote write し、
+古いバージョンの Prometheus を停止するという Prometheus のバージョンアップができそうな未来が見えます。</p>
+<p>PromQL から <a href="https://docs.victoriametrics.com/MetricsQL.html">MetricQL</a> となるため、
+PromQL で書いた、既存のアラート用の式の動作を確認していく作業や、
+アラートを設定するチームメンバーへのレクチャーが必要そうな感じです。</p>
+
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+

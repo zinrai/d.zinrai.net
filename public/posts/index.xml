@@ -6,7 +6,27 @@
     <description>Recent content in Posts on command not found:</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 12 Dec 2021 09:07:00 +0900</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Dec 2021 09:23:39 +0900</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>VectoriaMetrics を使ったメトリクス管理基盤</title>
+      <link>/posts/victoriametrics-monitoring/</link>
+      <pubDate>Mon, 13 Dec 2021 09:23:39 +0900</pubDate>
+      
+      <guid>/posts/victoriametrics-monitoring/</guid>
+      <description>さくらインターネット Advent Calendar 2021 13日目の記事になります。
+今日は、「さくらの専用サーバ PHY」にてメトリクス管理の基盤に、 VictoriaMetrics を使っているという話を書いていきます。
+VictoriaMetrics のアーキテクチャやコンポーネントについての詳しい説明は、 公式ドキュメント や、 他の記事にお任せし、「さくらの専用サーバ PHY」のメトリクス管理の基盤が、どのような構成ではじまり、 現在どうなっているのか、これからどうしていこうと考えているのかについて書いていきます。
+2020年7月時点の構成 「さくらの専用サーバ PHY」提供開始時のメトリクス管理・監視基盤の構成になります。
+Promxy を使ったアーキテクチャ より、 Promxy にリクエストすることで、 Prometheus のメトリクスにアクセスする構成をとっています。
+30日ぶんのトラフィックグラフをユーザーに提供するため、 Prometheus には30日ぶんのメトリクスを保存するようにしています。
+Prometheus には remote write という機能があり、 取得したメトリクスを別のストレージに転送することが可能になっています。 長期的なメトリクスを保存する場合は、 Prometheus に保存するのではなく、 Prometheus の remote write を使い、 長期保存のためのストレージを使う構成をとることを推奨しています。
+https://prometheus.io/docs/operating/integrations/#remote-endpoints-and-storage
+このタイミングでは、 サービスを支えるシステム基盤のメトリクスをどのように管理するのか、 ユーザーに提供している機器をどのようにメトリクス管理するのか、 複数台ある Prometheus のメトリクスをどのように参照するのか、 というようなところを検証、実装していたところで、サービスの提供開始となりました。
+長期的なメトリクスを保存するためのストレージを検証、導入する時間を確保できなかったため、 Promxy をエンドポイントに Prometheus のメトリクスにアクセスする構成をとりました。
+利用者の増加とともに Prometheus は追加されていきます。 Promxy をエンドポイントに Prometheus のメトリクスにアクセスする構成で、 どこまでスケールできるのか未知のまま運用している状態でした。
+Promxy が、 Grafana へのエンドポイント、ユーザーのトラフィックグラフへのエンドポイント、 アラート発砲と3つのサービスを提供しており、ダウンした場合の影響が大きいところも自分の中で引っ掛かっていました。</description>
+    </item>
+    
     <item>
       <title>Prometheus の Exporter を自分なりに分類してみた</title>
       <link>/posts/classify-prometheus-exporter/</link>
