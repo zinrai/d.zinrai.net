@@ -6,7 +6,24 @@
     <description>Recent content on command not found:</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 13 Dec 2021 09:23:39 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 14 Dec 2021 20:20:32 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>syslogを使ったログ管理について考察してみる</title>
+      <link>/posts/log-management-in-syslog/</link>
+      <pubDate>Tue, 14 Dec 2021 20:20:32 +0900</pubDate>
+      
+      <guid>/posts/log-management-in-syslog/</guid>
+      <description>さくらインターネット Advent Calendar 2021 14日目の記事になります。
+今日から、ログ管理について考えていることを何回かに分けて書いていきたいと思っています。
+「さくらの専用サーバ PHY」では Grafana Loki にて、ログ管理・監視の基盤を構築しています。 Grafana Loki の前には、 Graylog を使いログを管理していました。
+Grafana Loki がイケているから使っているのではなく、 syslog を使ったログ管理を運用した場合どのようなことが考えられるか、 syslog ではなく Graylog を使うと何がうれしくて、 Grafana Loki を使うと Graylog よりも何がうれしかったのかという流れで書いていく予定です。
+ログ管理となると一番馴染があるのは、 syslog なのではないかと思っています。 今回は、 syslog を使ったログ管理を運用した場合、どのようなことが考えられるかについて書いてみます。
+syslog でのログ管理 syslog のエージェントからログが転送され、 syslog サーバーは受信したログを自身のストレージにファイルで書き出すという構成を仮定した場合に、 下記の観点にてログ管理がどのようになるのか考察してみます。
+ ログ出力 冗長化 ストレージ拡張 ログ参照 ログのローテート スケールアウト  ログ転送・保存の構成としては、下記の2つのパターンがあるのではないかと思います。
+転送先の Syslog Server を複数設定した構成 アプリケーションは、ログ出力に syslog を使い、 syslog エージェントは、2つの syslog server にログを転送し、 2つの syslog server には同じログが保存されているという構成になります。
+ロードバランサを Syslog Server のエンドポイントに設定した構成 アプリケーションは、ログ出力に syslog を使い、 syslog エージェントは、ロードバランサのエンドポイントにログを転送し、 2台ある syslog server のどちらか一方に syslog エージェントから転送されたログが保存されているという構成になります。</description>
+    </item>
+    
     <item>
       <title>VectoriaMetrics を使ったメトリクス管理基盤</title>
       <link>/posts/victoriametrics-monitoring/</link>
