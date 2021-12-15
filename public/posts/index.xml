@@ -25,7 +25,7 @@ syslog でのログ管理 syslog のエージェントからログが転送さ�
     </item>
     
     <item>
-      <title>VectoriaMetrics を使ったメトリクス管理基盤</title>
+      <title>VictoriaMetrics を使ったメトリクス管理基盤</title>
       <link>/posts/victoriametrics-monitoring/</link>
       <pubDate>Mon, 13 Dec 2021 09:23:39 +0900</pubDate>
       
