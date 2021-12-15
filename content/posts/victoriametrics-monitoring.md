@@ -1,5 +1,5 @@
 ---
-title: "VectoriaMetrics を使ったメトリクス管理基盤"
+title: "VictoriaMetrics を使ったメトリクス管理基盤"
 date: 2021-12-13T09:23:39+09:00
 ---
 
