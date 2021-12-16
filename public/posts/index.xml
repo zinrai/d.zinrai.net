@@ -6,7 +6,25 @@
     <description>Recent content in Posts on command not found:</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Tue, 14 Dec 2021 20:20:32 +0900</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 17 Dec 2021 08:00:29 +0900</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Graylog を使ったログ管理基盤</title>
+      <link>/posts/log-management-in-graylog/</link>
+      <pubDate>Fri, 17 Dec 2021 08:00:29 +0900</pubDate>
+      
+      <guid>/posts/log-management-in-graylog/</guid>
+      <description>さくらインターネット Advent Calendar 2021 17日目の記事になります。
+syslog を使ったログ管理について考察してみる にて、 syslog server にファイルでログを管理するという構成をとった場合に、どうなりそうかについて考えてみました。
+「さくらの専用サーバ PHY」では、 syslog を使ったログ管理について考察してみる のようなログ管理はしておらず、 Graylog を使いログを管理していました。 Graylog でのログ管理を2年半ほど運用し、現在は Grafana Loki に切り替わっています。
+今回は、2年半とてもお世話になった Graylog を使うと、 syslog を使ったログ管理について考察してみる と同じ観点で、 どのようなログ管理を実現できるのかについて書いていきます。
+アーキテクチャ Graylog は、単体で動くものではなく、 設定情報を MongoDB で管理し、 ログを Elasticsearch で管理するアーキテクチャとなっています。 Graylog は、ログ受信、ログ検索の Web UI を提供します。
+https://docs.graylog.org/docs/architecture
+Graylog Graylog は master, slave の構成をとっています。 master にて Graylog を設定すると、設定情報は MongoDB に保存されます。 slave は MongoDB に保存された情報を参照し、動作します。
+https://docs.graylog.org/docs/manual-setup
+MongoDB Graylog の設定や Elasticsearch のインデックスなどの情報が保存されています。 を構成します。
+Graylog で利用する MongoDB の構成については、公式ドキュメントや他の記事にお任せします。</description>
+    </item>
+    
     <item>
       <title>syslog を使ったログ管理について考察してみる</title>
       <link>/posts/log-management-in-syslog/</link>

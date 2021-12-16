@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Graylog を使ったログ管理基盤 | command not found:</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="../../">Home</a></li>
+      
+      <li><a href="../../about/">About</a></li>
+      
+      <li><a href="../../tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Graylog を使ったログ管理基盤</span></h1>
+
+<h2 class="date">2021/12/17</h2>
+</div>
+
+<main>
+<p><a href="https://qiita.com/advent-calendar/2021/sakura">さくらインターネット Advent Calendar 2021</a> 17日目の記事になります。</p>
+<p><a href="posts/log-management-in-syslog">syslog を使ったログ管理について考察してみる</a> にて、 syslog server にファイルでログを管理するという構成をとった場合に、どうなりそうかについて考えてみました。</p>
+<p>「さくらの専用サーバ PHY」では、 <a href="posts/log-management-in-syslog">syslog を使ったログ管理について考察してみる</a> のようなログ管理はしておらず、 <a href="https://www.graylog.org/">Graylog</a> を使いログを管理していました。
+<a href="https://www.graylog.org/">Graylog</a> でのログ管理を2年半ほど運用し、現在は <a href="https://grafana.com/oss/loki/">Grafana Loki</a> に切り替わっています。</p>
+<p>今回は、2年半とてもお世話になった <a href="https://www.graylog.org/">Graylog</a> を使うと、
+<a href="posts/log-management-in-syslog">syslog を使ったログ管理について考察してみる</a> と同じ観点で、
+どのようなログ管理を実現できるのかについて書いていきます。</p>
+<h1 id="アーキテクチャ">アーキテクチャ</h1>
+<p><a href="https://www.graylog.org/">Graylog</a> は、単体で動くものではなく、
+設定情報を <a href="https://www.mongodb.com/">MongoDB</a> で管理し、
+ログを <a href="https://www.elastic.co/jp/elasticsearch/">Elasticsearch</a> で管理するアーキテクチャとなっています。
+<a href="https://www.graylog.org/">Graylog</a> は、ログ受信、ログ検索の Web UI を提供します。</p>
+<p><a href="https://docs.graylog.org/docs/architecture">https://docs.graylog.org/docs/architecture</a></p>
+<p><img src="../../imgs/log-management-in-graylog/graylog-architecture.png" alt="Graylog"></p>
+<h2 id="graylog">Graylog</h2>
+<p>Graylog は master, slave の構成をとっています。
+master にて Graylog を設定すると、設定情報は MongoDB に保存されます。
+slave は MongoDB に保存された情報を参照し、動作します。</p>
+<p><a href="https://docs.graylog.org/docs/manual-setup">https://docs.graylog.org/docs/manual-setup</a></p>
+<h2 id="mongodb">MongoDB</h2>
+<p>Graylog の設定や Elasticsearch のインデックスなどの情報が保存されています。
+を構成します。</p>
+<p>Graylog で利用する MongoDB の構成については、公式ドキュメントや他の記事にお任せします。</p>
+<p><a href="https://docs.mongodb.com/manual/tutorial/deploy-replica-set/">Replica Set</a> というキーワードで検索してみるといろいろ出てくるはずです。</p>
+<p><a href="https://docs.graylog.org/docs/multinode-setup">https://docs.graylog.org/docs/multinode-setup</a></p>
+<h2 id="elasticsearch">Elasticsearch</h2>
+<p>Graylog が受信したログが保存されます。</p>
+<p>Elasticsearch の構成については、公式ドキュメントや他の記事にお任せします。</p>
+<p>プライマリシャード、レプリカシャードというキーワードで検索するといろいろ出てくるはずです。</p>
+<p><a href="https://docs.graylog.org/docs/multinode-setup">https://docs.graylog.org/docs/multinode-setup</a></p>
+<h1 id="ログ転送">ログ転送</h1>
+<p>ログ転送エージェントには、 syslog と <a href="https://www.elastic.co/jp/beats/filebeat">Filebeat</a> を利用しました。</p>
+<p><img src="../../imgs/log-management-in-graylog/graylog-input-source.png" alt="Graylog-input"></p>
+<h2 id="syslog">syslog</h2>
+<p>ネットワーク機器、アプライアンスなどのログを管理する必要があり、
+これらは任意のログ転送エージェントをインストールできず、ログ転送は、 syslog のみとなります。
+Graylog では、 syslog を受信できます。</p>
+<p><a href="https://docs.graylog.org/docs/syslog">https://docs.graylog.org/docs/syslog</a></p>
+<h2 id="filebeat">Filebeat</h2>
+<p><a href="https://www.fluentd.org/">fluentd</a> にてログのファイルを読み込み、
+Graylog に転送できないか調べてみましたが、標準の機能には無く、
+Graylog のプロトコルである GELF を Output するサードパーティーのプラグインがありましたが、
+それを利用し、「いざとなったらコードにダイブしてメンテナンスし続ける」
+という気概を持てなかったので、他の手段を探してみることにしました。</p>
+<p>Graylog は Beats プロトコルに対応しており、
+<a href="https://www.elastic.co/jp/beats/filebeat">Filebeat</a> が利用できることがわかりました。
+ログのファイルを読み込み、 Graylog に転送するという要件を満たしているため、採用しました。</p>
+<p><a href="https://docs.graylog.org/docs/beats">https://docs.graylog.org/docs/beats</a></p>
+<h1 id="graylog-でのログ管理">Graylog でのログ管理</h1>
+<p><a href="posts/log-management-in-syslog">syslog を使ったログ管理について考察してみる</a> と同じ観点で、
+Graylog でのログ管理を使うとどうなりそうかについて考えてみます。</p>
+<h2 id="ログ出力">ログ出力</h2>
+<p>アプリケーションは、ログをどこかにファイルで出力していれば、
+<a href="https://www.elastic.co/jp/beats/filebeat">Filebeat</a> がファイルを拾い Graylog でログが管理できます。
+アプリケーションにて syslog を使うという制約が無くなり、任意の場所にログを書き出せばよくなります。</p>
+<h2 id="冗長化">冗長化</h2>
+<p>Graylog slave を複数台並べておけば、
+Graylog slave が1台ダウンしたとしても、ログ受信を継続できます。</p>
+<p>Elasticsearch は、複数台のクラスタを構成しており、
+Elastcsearch のノードが1台ダウンしたとしてもログの保存を継続できます。</p>
+<p>MongoDB は、複数台で Primary, Secondary を構成しており、
+MongoDB が1台ダウンしたとしても、設定情報の読み込みや書き込みを継続できます。</p>
+<p>Graylog は、 IaaS で運用していました。
+仮想サーバーを収容しているホストのメンテナンスにより、
+サーバーを停止・起動する必要がありましたが、上記の構成がとれていたことにより、
+サーバーを停止したとしてもログ管理のサービスを継続できました。</p>
+<h2 id="ストレージ拡張">ストレージ拡張</h2>
+<p>Elasticserach は、複数台のクラスタを構成しており、
+Elastcsearch のノードが1台停止してもデータの保存や参照が停止しない仕組みとなっています。</p>
+<p>Elasticsearch のノードを1台停止し、ストレージを拡張し、
+Elasticsearch のクラスタに再投入するというオペレーションにより、
+ログの保存・参照を停止することなくストレージの拡張が可能です。</p>
+<h2 id="ログ参照">ログ参照</h2>
+<p>Graylog にてログを検索するためのインタフェースが提供されています。
+ログを検索するための仕組みを独自に作る必要はありません。</p>
+<h2 id="ログのローテート">ログのローテート</h2>
+<p>Graylog にて設定した世代数ぶん Elasticsearch のインデックスを残すという設定があり、
+それを設定しておけば、 Graylog がよしなにログをローテートします。
+ログをローテートする仕組みを独自に作る必要はありません。</p>
+<h2 id="スケールアウト">スケールアウト</h2>
+<p>ログの流量に合わせて、 Graylog slave でのログ受信をスケールさせたり、
+Elasticsearch をスケールしながら、ログを管理していけそうです。</p>
+<h1 id="何がうれしいのか">何がうれしいのか</h1>
+<p>ログの参照、ローテートの仕組みを作る必要が無く、
+Graylog の各コンポーネントが1台停止したくらいで止まるような
+ログ管理のサービスにはならないのではないかということが見えてきます。</p>
+
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+
