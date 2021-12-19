@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Graylog でのログ監視を考えてみる | command not found:</title>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="../../">Home</a></li>
+      
+      <li><a href="../../about/">About</a></li>
+      
+      <li><a href="../../tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Graylog でのログ監視を考えてみる</span></h1>
+
+<h2 class="date">2021/12/18</h2>
+</div>
+
+<main>
+<p><a href="https://qiita.com/advent-calendar/2021/sakura">さくらインターネット Advent Calendar 2021</a> 18日目の記事になります。</p>
+<p><a href="posts/log-management-in-graylog">Graylog を使ったログ管理基盤</a> では、「さくらの専用サーバ PHY」にて過去に利用していたログ管理の仕組みについて説明しました。</p>
+<p>ログには、何かあったときに調査するための側面と、
+このログが出力されたら対応が必要な監視の側面があると思います。</p>
+<p>今回は、実際には <a href="https://grafana.com/oss/loki/">Grafana Loki</a> にて実現したため使うことはありませんでしたが、
+「さくらの専用サーバ PHY」にて、 <a href="https://www.graylog.org/">Graylog</a> を使ったログ監視について考えていたとを書いていきます。</p>
+<h1 id="監視について考えていたこと">監視について考えていたこと</h1>
+<p>「さくらの専用サーバ PHY」の監視について、だたアラートがどこかに通知できればよいと考えていたわけではないことを書いていきます。</p>
+<h2 id="アラート通知のインタフェースには-alertmanager-を使う">アラート通知のインタフェースには Alertmanager を使う</h2>
+<p>今までに係わってきたシステムでは、アラートを通知してくるものが、 Nagios だったり、 Cacti だったり、単体のアプリケーションだったりと、
+それぞれが独自に通知する仕組みを持っていると、それぞれの仕組みを見なければならず、運用の負荷た高いなと感じていました。</p>
+<p>「さくらの専用サーバ PHY」では、 <a href="posts/victoriametrics-monitoring">VictoriaMetrics を使ったメトリクス管理基盤</a> のように、
+メトリクス監視の通知に <a href="https://prometheus.io/docs/alerting/latest/alertmanager/">Alertmanager</a> を使っています。</p>
+<p>ログ監視に対して、独自に通知する仕組みを作り込むのではなく、アラート通知のインタフェースを <a href="https://prometheus.io/docs/alerting/latest/alertmanager/">Alertmanager</a> に統一することで、
+アラートについては、 <a href="https://prometheus.io/docs/alerting/latest/alertmanager/">Alertmanager</a> を見ればよい、
+アラート通知を停止したり、抑止したりといったオペレーションを統一していきたいと考えていました。</p>
+<h2 id="メトリクス監視の-alertmanager-のルーティング設定を使いたい">メトリクス監視の Alertmanager のルーティング設定を使いたい</h2>
+<p>メトリクス監視では、 <a href="https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/">ALERTING RULES</a> のように PromQL の式に加えて label, annotation を設定します。
+メトリクス監視にて設定された label などを設定し、 Alertmanager では、受け取ったアラートに付与されている label から、アラートをどこに通知するかのルーティングを設定します。</p>
+<p>ログ監視のインタフェースを Alertmanager に統一できたとして、
+ルーティングの設定がメトリクス監視と異なるといった状況になると、
+Alertmanager のルーティング設定が肥大化し、それはそれで運用の負荷に跳ね返ってくるのではないかと思っていました。</p>
+<p>可能であれば、メトリクス監視にて、 Alertmanager に設定したルーティングをログ監視でも使えるようにし、
+Alertmanager のルーティング設定を小さく保ちたいと考えていました。</p>
+<h2 id="alertmanager-のインタフェースに変換する仕組みが必要そう">Alertmanager のインタフェースに変換する仕組みが必要そう</h2>
+<p>利用していた Graylog は <a href="https://archivedocs.graylog.org/en/3.1/">3.1</a> になります。
+アラートルールを設定し、通知する機能は持っていましたが、
+標準では、 Alertmanager に通知する仕組みを持っていませんでした。
+何かしら、 Alertmanager のインタフェースに変換する仕組みを用意しなければならないということを考えていました。</p>
+<h1 id="alertmanager-との連携">Alertmanager との連携</h1>
+<p><a href="https://www.graylog.org/">Graylog</a> が <a href="https://prometheus.io/docs/alerting/latest/alertmanager/">Alertmanager</a> と連携するために、どのようなやり方がありそうかについて説明します。
+ログ管理も監視も <a href="https://grafana.com/oss/loki/">Grafana Loki</a> に切り替えたため、
+Graylog でのログ監視については、調査したところまでで、それぞれについて検証などは行っていません。</p>
+<h2 id="plugin-方式">Plugin 方式</h2>
+<p><img src="../../imgs/log-monitoring-using-graylog/graylog-plugin-monitoring.png" alt="Plugin"></p>
+<p>Graylog の公開している API を使うことで、
+プラグインという形で Graylog を拡張できるようになっているということがわかりました。</p>
+<p><a href="https://archivedocs.graylog.org/en/3.1/pages/plugins.html">https://archivedocs.graylog.org/en/3.1/pages/plugins.html</a></p>
+<p><a href="https://marketplace.graylog.org/addons/0e54b5b4-f252-444e-ac15-989bbf2b0a74">GraylogからAlertmanagerに通知するプラグイン</a> がサードパーティーで公開されているところまでは確認しました。
+プラグインの開発には、 Java を使うことになり、 Java で Hello World も書いたことが無い私には、
+プラグインを作ることも、メンテナンスすることもハードルが高そうだなという気持ちになりました。</p>
+<h2 id="webhook-方式">Webhook 方式</h2>
+<p><img src="../../imgs/log-monitoring-using-graylog/graylog-webhook-monitoring.png" alt="Webhook"></p>
+<p>Graylog は、アラートを HTTP で通知する機能を持っていました。</p>
+<p><a href="https://archivedocs.graylog.org/en/3.1/pages/streams/alerts.html#http-alert-notification">https://archivedocs.graylog.org/en/3.1/pages/streams/alerts.html#http-alert-notification</a></p>
+<p>Webhook であれば、自分が馴染のある言語にて HTTP POST を受け、
+Alertmanager に HTTP POST するアプリケーションを実装すればよいため、
+Graylog と Alertmanager と連携させる仕組みを実現できるのではないかと思いました。</p>
+<h1 id="何が必要そうか">何が必要そうか</h1>
+<p>Graylog でのログ監視を Alertmanager と連携させどう実現するかを調べてみたことにより、
+何かしらの開発は必要そうであるということは見えてきました。</p>
+
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+

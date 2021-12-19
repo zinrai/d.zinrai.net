@@ -6,7 +6,25 @@
     <description>Recent content on command not found:</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 17 Dec 2021 08:00:29 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Dec 2021 10:09:23 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Graylog でのログ監視を考えてみる</title>
+      <link>/posts/log-monitoring-using-graylog/</link>
+      <pubDate>Sat, 18 Dec 2021 10:09:23 +0900</pubDate>
+      
+      <guid>/posts/log-monitoring-using-graylog/</guid>
+      <description>さくらインターネット Advent Calendar 2021 18日目の記事になります。
+Graylog を使ったログ管理基盤 では、「さくらの専用サーバ PHY」にて過去に利用していたログ管理の仕組みについて説明しました。
+ログには、何かあったときに調査するための側面と、 このログが出力されたら対応が必要な監視の側面があると思います。
+今回は、実際には Grafana Loki にて実現したため使うことはありませんでしたが、 「さくらの専用サーバ PHY」にて、 Graylog を使ったログ監視について考えていたとを書いていきます。
+監視について考えていたこと 「さくらの専用サーバ PHY」の監視について、だたアラートがどこかに通知できればよいと考えていたわけではないことを書いていきます。
+アラート通知のインタフェースには Alertmanager を使う 今までに係わってきたシステムでは、アラートを通知してくるものが、 Nagios だったり、 Cacti だったり、単体のアプリケーションだったりと、 それぞれが独自に通知する仕組みを持っていると、それぞれの仕組みを見なければならず、運用の負荷た高いなと感じていました。
+「さくらの専用サーバ PHY」では、 VictoriaMetrics を使ったメトリクス管理基盤 のように、 メトリクス監視の通知に Alertmanager を使っています。
+ログ監視に対して、独自に通知する仕組みを作り込むのではなく、アラート通知のインタフェースを Alertmanager に統一することで、 アラートについては、 Alertmanager を見ればよい、 アラート通知を停止したり、抑止したりといったオペレーションを統一していきたいと考えていました。
+メトリクス監視の Alertmanager のルーティング設定を使いたい メトリクス監視では、 ALERTING RULES のように PromQL の式に加えて label, annotation を設定します。 メトリクス監視にて設定された label などを設定し、 Alertmanager では、受け取ったアラートに付与されている label から、アラートをどこに通知するかのルーティングを設定します。
+ログ監視のインタフェースを Alertmanager に統一できたとして、 ルーティングの設定がメトリクス監視と異なるといった状況になると、 Alertmanager のルーティング設定が肥大化し、それはそれで運用の負荷に跳ね返ってくるのではないかと思っていました。</description>
+    </item>
+    
     <item>
       <title>Graylog を使ったログ管理基盤</title>
       <link>/posts/log-management-in-graylog/</link>

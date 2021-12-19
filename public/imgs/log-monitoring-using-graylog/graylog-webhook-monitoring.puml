@@ -1,0 +1,6 @@
+@startuml
+
+[Graylog] -up-> [Webhook Application] : HTTP
+[Webhook Application] -up-> [Alertmanager] : HTTP
+
+@enduml
