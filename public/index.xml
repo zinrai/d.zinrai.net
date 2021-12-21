@@ -6,7 +6,23 @@
     <description>Recent content on command not found:</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sat, 18 Dec 2021 10:09:23 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 19 Dec 2021 13:35:41 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Grafana Loki を使ったログ管理基盤</title>
+      <link>/posts/log-management-using-grafana-loki/</link>
+      <pubDate>Sun, 19 Dec 2021 13:35:41 +0900</pubDate>
+      
+      <guid>/posts/log-management-using-grafana-loki/</guid>
+      <description>さくらインターネット Advent Calendar 2021 19日目の記事になります。
+現在、「さくらの専用サーバ PHY」のログ管理基盤にて、 Grafana Loki を利用しています。
+今回は、 Graylog を使ったログ管理基盤 を運用し得られた知見、 「さくらの専用サーバ PHY」での Grafana Loki のアーキテクチャと Graylog の運用と異なる点はどうであるかについて書いていきます。
+Graylog を運用し得られた知見 Graylog は、メンテナンスなどの計画された作業以外では、 一度も停止することなく「さくらの専用サーバ PHY」のログ基盤を支えてくれました。 Graylog を2年半運用し得られた知見のいくつかを紹介することで、 Graylog を使っていない方々に運用のイメージを持ってもらえたらと思っています。
+Elasticsearch での型によりログが保存されない ログの保存先である Elasticsearch は、 Key, Value という形でログを保持しており、 Value には、 integer, string などの型が付いています。 型は、自動でマッピングされます。
+https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html
+例えば、 status という Kye を持ったログの Value の型が string だった場合に、 status: ok のログを出力するアプリケーションのログは、 Elasticsearch に保存されますが、 status: 200 のログを出力するアプリケーションのログは、 Elasticsearch の型とは異なるため、 Graylog が下記のエラーを吐き、 Elasticsearch にはログが保存されないということが起きます。
+2020-06-03 17:15:56,386 WARN : org.</description>
+    </item>
+    
     <item>
       <title>Graylog でのログ監視を考えてみる</title>
       <link>/posts/log-monitoring-using-graylog/</link>

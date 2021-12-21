@@ -1,0 +1,31 @@
+@startuml
+
+package "Grafana Loki" {
+	[Distributor]
+	[Ingester]
+	[Querier]
+	[Query Frontend]
+	[Compactor]
+}
+
+[ログ転送エージェント] -down-> [Distributor]
+[Distributor] -down-> [Consul] #red
+[Distributor] -down-> [Ingester]
+[Ingester] -down-> [Consul] #red
+[Grafana] -down-> [Query Frontend]
+[Query Frontend] -down-> [Querier]
+[Querier] -down-> [Consul] #red
+
+package "オブジェクトストレージ" {
+	[Index]
+	[Chunk]
+}
+
+[Ingester] -down-> [Index] #green
+[Ingester] -down-> [Chunk] #blue
+[Querier] -down-> [Index] #green
+[Querier] -down-> [Chunk] #blue
+[Compactor] -down-> [Index] #green
+[Querier] -right-> [Ingester]
+
+@enduml
