@@ -19,7 +19,7 @@ VictoriaMetrics のアーキテクチャやコンポーネントについての�
 
 「さくらの専用サーバ PHY」提供開始時のメトリクス管理・監視基盤の構成になります。
 
-[Promxy を使ったアーキテクチャ](posts/promxy-architecture) より、
+[Promxy を使ったアーキテクチャ](/posts/promxy-architecture) より、
 Promxy にリクエストすることで、 Prometheus のメトリクスにアクセスする構成をとっています。
 
 30日ぶんのトラフィックグラフをユーザーに提供するため、
