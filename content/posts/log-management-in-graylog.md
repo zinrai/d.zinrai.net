@@ -5,13 +5,13 @@ date: 2021-12-17T08:00:29+09:00
 
 [さくらインターネット Advent Calendar 2021](https://qiita.com/advent-calendar/2021/sakura) 17日目の記事になります。
 
-[syslog を使ったログ管理について考察してみる](posts/log-management-in-syslog) にて、 syslog server にファイルでログを管理するという構成をとった場合に、どうなりそうかについて考えてみました。
+[syslog を使ったログ管理について考察してみる](/posts/log-management-in-syslog) にて、 syslog server にファイルでログを管理するという構成をとった場合に、どうなりそうかについて考えてみました。
 
-「さくらの専用サーバ PHY」では、 [syslog を使ったログ管理について考察してみる](posts/log-management-in-syslog) のようなログ管理はしておらず、 [Graylog](https://www.graylog.org/) を使いログを管理していました。
+「さくらの専用サーバ PHY」では、 [syslog を使ったログ管理について考察してみる](/posts/log-management-in-syslog) のようなログ管理はしておらず、 [Graylog](https://www.graylog.org/) を使いログを管理していました。
 [Graylog](https://www.graylog.org/) でのログ管理を2年半ほど運用し、現在は [Grafana Loki](https://grafana.com/oss/loki/) に切り替わっています。
 
 今回は、2年半とてもお世話になった [Graylog](https://www.graylog.org/) を使うと、
-[syslog を使ったログ管理について考察してみる](posts/log-management-in-syslog) と同じ観点で、
+[syslog を使ったログ管理について考察してみる](/posts/log-management-in-syslog) と同じ観点で、
 どのようなログ管理を実現できるのかについて書いていきます。
 
 # アーキテクチャ
@@ -84,7 +84,7 @@ https://docs.graylog.org/docs/beats
 
 # Graylog でのログ管理
 
-[syslog を使ったログ管理について考察してみる](posts/log-management-in-syslog) と同じ観点で、
+[syslog を使ったログ管理について考察してみる](/posts/log-management-in-syslog) と同じ観点で、
 Graylog でのログ管理を使うとどうなりそうかについて考えてみます。
 
 ## ログ出力
