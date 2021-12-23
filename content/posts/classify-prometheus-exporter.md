@@ -5,7 +5,7 @@ date: 2021-12-12T09:07:00+09:00
 
 [さくらインターネット Advent Calendar 2021](https://qiita.com/advent-calendar/2021/sakura) 12日目の記事になります。
 
-[Prometheus を使うと何がうれしいのか自分なりに考えてみた](posts/motivation-use-prometheus) にて、 Prometheus ではどのようなモニタリングを実現でき、従来のモニタリングの仕組みと比べてのうれしい部分について考えてみました。
+[Prometheus を使うと何がうれしいのか自分なりに考えてみた](/posts/motivation-use-prometheus) にて、 Prometheus ではどのようなモニタリングを実現でき、従来のモニタリングの仕組みと比べてのうれしい部分について考えてみました。
 
 Prometheus では、 Exporter を使い対象のメトリクスを取得するということを説明しました。
 Exporter がどのようなものであるかを説明したあと、
