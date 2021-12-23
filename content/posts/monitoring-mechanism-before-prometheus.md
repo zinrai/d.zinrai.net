@@ -127,10 +127,10 @@ Nagios でモニタリングしたままでは、アラートが発砲される�
 サービスを提供するために動かしているアプリケーションもモニタリングの対象です。
 
 コンテナオーケストレーションを利用している場合のモニタリングはどうなるでしょうか。
-[コンテナオーケストレーションを使うモチベーションを自分なりに考えてみた](posts/motivation-using-container-orchestration) に出てきた Nomad を使いアプリケーション実行環境を構成している場合は、
+[コンテナオーケストレーションを使うモチベーションを自分なりに考えてみた](/posts/motivation-using-container-orchestration) に出てきた Nomad を使いアプリケーション実行環境を構成している場合は、
 モニタリングの対象が、次の瞬間には別のサーバーで実行されている可能性があります。
 
-[コンテナオーケストレーションにて必要になってくるもの](posts/technologies-required-for-container-orchestration) に出てきた Consul からモニタリングの対象を特定し、
+[コンテナオーケストレーションにて必要になってくるもの](/posts/technologies-required-for-container-orchestration) に出てきた Consul からモニタリングの対象を特定し、
 Nagios, Cacti を更新するというアプリケーションを作って、モニタリングの対象を更新していくという手はありそうです。
 
 ## ユーザーへのトラフィックグラフの提供
