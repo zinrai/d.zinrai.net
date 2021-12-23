@@ -5,7 +5,7 @@ date: 2021-12-08T08:05:12+09:00
 
 [さくらインターネット Advent Calendar 2021](https://qiita.com/advent-calendar/2021/sakura) 8日目の記事になります。
 
-[コンテナオーケストレーションを使うモチベーションを自分なりに考えてみた](motivation-using-container-orchestration) にて、 Docker を導入するだけでは解決しなかった課題を Nomad と組み合わせることにより解決できそうであるということを説明しました。
+[コンテナオーケストレーションを使うモチベーションを自分なりに考えてみた](/posts/motivation-using-container-orchestration) にて、 Docker を導入するだけでは解決しなかった課題を Nomad と組み合わせることにより解決できそうであるということを説明しました。
 
 今回は、 Docker と Nomad を組み合わせるだけでは解決できていないことに対して必要になってくる技術について、
 従来のシステム連携がどのようになっているかという話と絡めながら説明します。
