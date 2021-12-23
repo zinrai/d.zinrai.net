@@ -8,7 +8,7 @@ date: 2021-12-19T13:35:41+09:00
 現在、「さくらの専用サーバ PHY」のログ管理基盤にて、
 [Grafana Loki](https://grafana.com/oss/loki/) を利用しています。
 
-今回は、 [Graylog を使ったログ管理基盤](posts/log-management-in-graylog) を運用し得られた知見、
+今回は、 [Graylog を使ったログ管理基盤](/posts/log-management-in-graylog) を運用し得られた知見、
 「さくらの専用サーバ PHY」での [Grafana Loki](https://grafana.com/oss/loki/) のアーキテクチャと
 [Graylog](https://www.graylog.org/) の運用と異なる点はどうであるかについて書いていきます。
 
@@ -112,7 +112,7 @@ Ingester の情報は、 Consul の KVS に保存しています。
 Consul の KVS で保存されている Ingester の情報を参照し、
 Distributor, Querier は、 Ingester に接続する構成をとっています。
 
-[コンテナオーケストレーションにて必要になってくるもの](posts/technologies-required-for-container-orchestration) で登場した Consul を利用していたため、この構成を取ることにしました。
+[コンテナオーケストレーションにて必要になってくるもの](/posts/technologies-required-for-container-orchestration) で登場した Consul を利用していたため、この構成を取ることにしました。
 
 ## オブジェクトストレージ
 
