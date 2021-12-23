@@ -5,7 +5,7 @@ date: 2021-12-11T10:05:45+09:00
 
 [さくらインターネット Advent Calendar 2021](https://qiita.com/advent-calendar/2021/sakura) 11日目の記事になります。
 
-[Prometheus 以前のモニタリングの仕組みを考察してみる](posts/monitoring-mechanism-before-prometheus) では、
+[Prometheus 以前のモニタリングの仕組みを考察してみる](/posts/monitoring-mechanism-before-prometheus) では、
 Nagios, Cacti を例に Prometheus 以前のモニタリングの仕組みはどのようになっているかを考察し、
 Nagios, Cacti で「さくらの専用サーバ PHY」のモニタリングを実装するとどうなりそうであるかを考え、
 「けっこうアプリケーションを作ら作らなければならないな」ということが見えてきました。
@@ -39,7 +39,7 @@ Prometheus にメトリクスを保存するためには Exporter が必須と�
 
 # Prometheus でのモニタリング
 
-[Prometheus 以前のモニタリングの仕組みを考察してみる](posts/monitoring-mechanism-before-prometheus) では、
+[Prometheus 以前のモニタリングの仕組みを考察してみる](/posts/monitoring-mechanism-before-prometheus) では、
 Nagios, Cacti にて「さくらの専用サーバ PHY」のモニタリングを考察しました。
 今回は、 Prometheus を使った場合の「さくらの専用サーバ PHY」のモニタリングを考察します。
 
@@ -51,7 +51,7 @@ Nagios, Cacti にて「さくらの専用サーバ PHY」のモニタリング�
 
 ## ユーザーが利用している機器のモニタリング
 
-Prometheus は、 [コンテナオーケストレーションにて必要になってくるもの](posts/technologies-required-for-container-orchestration) にて説明した Consul と連携できるようになっています。
+Prometheus は、 [コンテナオーケストレーションにて必要になってくるもの](/posts/technologies-required-for-container-orchestration) にて説明した Consul と連携できるようになっています。
 Consul は Nomad と組み合わせるだけのものではなく、「サービス」を登録する仕組みになります。
 Consul に「物理サーバー」「スイッチ」といった「サービス」を登録し、
 Prometheus のモニタリング対象として呼び出すことができるようになっています。
@@ -107,7 +107,7 @@ https://prometheus.io/docs/prometheus/latest/querying/api/#range-queries
 
 # Prometheus を使うと何がうれしいのか
 
-[Prometheus 以前のモニタリングの仕組みを考察してみる](posts/monitoring-mechanism-before-prometheus) では、
+[Prometheus 以前のモニタリングの仕組みを考察してみる](/posts/monitoring-mechanism-before-prometheus) では、
 Nagios, Cacti を例に、4つの観点で考察しました。
 Prometheus でのモニタリングでは、どうであるかについて考察してみます。
 
@@ -124,7 +124,7 @@ HTTP API を介してストレージのデータにアクセスする手段は�
 
 Prometheus では、
 Prometheus というメトリクスが保存されたストレージを起点に、 Prometheus の HTTP API を介して、
-アラート発砲は、 Promxy ( [Promxy を使ったアーキテクチャ](posts/promxy-architecture) を参照 )、
+アラート発砲は、 Promxy ( [Promxy を使ったアーキテクチャ](/posts/promxy-architecture) を参照 )、
 時系列データなどのグラフ表示は、 [Grafana](https://grafana.com/) を使う構成をとることができます。
 
 https://prometheus.io/docs/prometheus/latest/querying/api/
