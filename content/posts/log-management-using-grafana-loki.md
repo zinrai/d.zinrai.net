@@ -139,5 +139,5 @@ Graylog を使っていたときと同じく、各コンポーネントが1つ�
 チームメンバーにハンズオンする機会を設け、 Grafana Loki でのログ検索についてのキャッチアップを実施しました。
 
 Grafana Loki へのログ転送には、 [Promtail](https://grafana.com/docs/loki/latest/clients/promtail/) を使うのが、よく見る構成かなと思います。
-「さくらの専用サーバ PHY」では、 [VECTOR](https://vector.dev/) を使い、 Grafana Loki にログを転送しています。
+「さくらの専用サーバ PHY」では、 [Vector](https://vector.dev/) を使い、 Grafana Loki にログを転送しています。
 [さくらインターネット Advent Calendar 2021](https://qiita.com/advent-calendar/2021/sakura) には投稿できる枠が無いため、別の機会に記事にしたいと思っています。
