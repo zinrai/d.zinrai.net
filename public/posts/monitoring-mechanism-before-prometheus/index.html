@@ -117,9 +117,9 @@ Nagios , Cacti に HTTP API は無いので、登録するためのアプリケ�
 <p>モニタリングする対象は、ユーザーに提供している機器だけではありません。
 サービスを提供するために動かしているアプリケーションもモニタリングの対象です。</p>
 <p>コンテナオーケストレーションを利用している場合のモニタリングはどうなるでしょうか。
-<a href="posts/motivation-using-container-orchestration">コンテナオーケストレーションを使うモチベーションを自分なりに考えてみた</a> に出てきた Nomad を使いアプリケーション実行環境を構成している場合は、
+<a href="../../posts/motivation-using-container-orchestration">コンテナオーケストレーションを使うモチベーションを自分なりに考えてみた</a> に出てきた Nomad を使いアプリケーション実行環境を構成している場合は、
 モニタリングの対象が、次の瞬間には別のサーバーで実行されている可能性があります。</p>
-<p><a href="posts/technologies-required-for-container-orchestration">コンテナオーケストレーションにて必要になってくるもの</a> に出てきた Consul からモニタリングの対象を特定し、
+<p><a href="../../posts/technologies-required-for-container-orchestration">コンテナオーケストレーションにて必要になってくるもの</a> に出てきた Consul からモニタリングの対象を特定し、
 Nagios, Cacti を更新するというアプリケーションを作って、モニタリングの対象を更新していくという手はありそうです。</p>
 <h2 id="ユーザーへのトラフィックグラフの提供">ユーザーへのトラフィックグラフの提供</h2>
 <p>「さくらの専用サーバ PHY」では、

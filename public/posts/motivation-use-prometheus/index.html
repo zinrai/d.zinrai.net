@@ -31,7 +31,7 @@
 
 <main>
 <p><a href="https://qiita.com/advent-calendar/2021/sakura">さくらインターネット Advent Calendar 2021</a> 11日目の記事になります。</p>
-<p><a href="posts/monitoring-mechanism-before-prometheus">Prometheus 以前のモニタリングの仕組みを考察してみる</a> では、
+<p><a href="../../posts/monitoring-mechanism-before-prometheus">Prometheus 以前のモニタリングの仕組みを考察してみる</a> では、
 Nagios, Cacti を例に Prometheus 以前のモニタリングの仕組みはどのようになっているかを考察し、
 Nagios, Cacti で「さくらの専用サーバ PHY」のモニタリングを実装するとどうなりそうであるかを考え、
 「けっこうアプリケーションを作ら作らなければならないな」ということが見えてきました。</p>
@@ -52,14 +52,14 @@ Prometheus が保存できる形式のメトリクスを HTTP として公開す
 この機能を持ったアプリケーションを Exporter と呼んでいます。
 Prometheus にメトリクスを保存するためには Exporter が必須となります。</p>
 <h1 id="prometheus-でのモニタリング">Prometheus でのモニタリング</h1>
-<p><a href="posts/monitoring-mechanism-before-prometheus">Prometheus 以前のモニタリングの仕組みを考察してみる</a> では、
+<p><a href="../../posts/monitoring-mechanism-before-prometheus">Prometheus 以前のモニタリングの仕組みを考察してみる</a> では、
 Nagios, Cacti にて「さくらの専用サーバ PHY」のモニタリングを考察しました。
 今回は、 Prometheus を使った場合の「さくらの専用サーバ PHY」のモニタリングを考察します。</p>
 <h2 id="アーキテクチャ">アーキテクチャ</h2>
 <p>下記のアーキテクチャをベースに「さくらの専用サーバ PHY」を Prometheus にてモニタリングした場合について考えてみます。</p>
 <p><img src="../../imgs/motivation-use-prometheus/prometheus-monitoring.png" alt="Prometheusでのモニタリング"></p>
 <h2 id="ユーザーが利用している機器のモニタリング">ユーザーが利用している機器のモニタリング</h2>
-<p>Prometheus は、 <a href="posts/technologies-required-for-container-orchestration">コンテナオーケストレーションにて必要になってくるもの</a> にて説明した Consul と連携できるようになっています。
+<p>Prometheus は、 <a href="../../posts/technologies-required-for-container-orchestration">コンテナオーケストレーションにて必要になってくるもの</a> にて説明した Consul と連携できるようになっています。
 Consul は Nomad と組み合わせるだけのものではなく、「サービス」を登録する仕組みになります。
 Consul に「物理サーバー」「スイッチ」といった「サービス」を登録し、
 Prometheus のモニタリング対象として呼び出すことができるようになっています。</p>
@@ -99,7 +99,7 @@ Prometheus のモニタリングの対象とすることが可能です。
 Prometheus に保存しているトラフィックのメトリクスをコントロールパネルに表示するための形式に変換する graph-api を作れば、コントロールパネルに表示するデータを返すことができます。</p>
 <p><a href="https://prometheus.io/docs/prometheus/latest/querying/api/#range-queries">https://prometheus.io/docs/prometheus/latest/querying/api/#range-queries</a></p>
 <h1 id="prometheus-を使うと何がうれしいのか">Prometheus を使うと何がうれしいのか</h1>
-<p><a href="posts/monitoring-mechanism-before-prometheus">Prometheus 以前のモニタリングの仕組みを考察してみる</a> では、
+<p><a href="../../posts/monitoring-mechanism-before-prometheus">Prometheus 以前のモニタリングの仕組みを考察してみる</a> では、
 Nagios, Cacti を例に、4つの観点で考察しました。
 Prometheus でのモニタリングでは、どうであるかについて考察してみます。</p>
 <h2 id="対象の追加削除">対象の追加・削除</h2>
@@ -111,7 +111,7 @@ Prometheus が複数台になったとしても、 Consul を参照すれば、�
 HTTP API を介してストレージのデータにアクセスする手段はありませんでした。</p>
 <p>Prometheus では、
 Prometheus というメトリクスが保存されたストレージを起点に、 Prometheus の HTTP API を介して、
-アラート発砲は、 Promxy ( <a href="posts/promxy-architecture">Promxy を使ったアーキテクチャ</a> を参照 )、
+アラート発砲は、 Promxy ( <a href="../../posts/promxy-architecture">Promxy を使ったアーキテクチャ</a> を参照 )、
 時系列データなどのグラフ表示は、 <a href="https://grafana.com/">Grafana</a> を使う構成をとることができます。</p>
 <p><a href="https://prometheus.io/docs/prometheus/latest/querying/api/">https://prometheus.io/docs/prometheus/latest/querying/api/</a></p>
 <h2 id="インタフェース">インタフェース</h2>

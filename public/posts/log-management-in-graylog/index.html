@@ -31,11 +31,11 @@
 
 <main>
 <p><a href="https://qiita.com/advent-calendar/2021/sakura">さくらインターネット Advent Calendar 2021</a> 17日目の記事になります。</p>
-<p><a href="posts/log-management-in-syslog">syslog を使ったログ管理について考察してみる</a> にて、 syslog server にファイルでログを管理するという構成をとった場合に、どうなりそうかについて考えてみました。</p>
-<p>「さくらの専用サーバ PHY」では、 <a href="posts/log-management-in-syslog">syslog を使ったログ管理について考察してみる</a> のようなログ管理はしておらず、 <a href="https://www.graylog.org/">Graylog</a> を使いログを管理していました。
+<p><a href="../../posts/log-management-in-syslog">syslog を使ったログ管理について考察してみる</a> にて、 syslog server にファイルでログを管理するという構成をとった場合に、どうなりそうかについて考えてみました。</p>
+<p>「さくらの専用サーバ PHY」では、 <a href="../../posts/log-management-in-syslog">syslog を使ったログ管理について考察してみる</a> のようなログ管理はしておらず、 <a href="https://www.graylog.org/">Graylog</a> を使いログを管理していました。
 <a href="https://www.graylog.org/">Graylog</a> でのログ管理を2年半ほど運用し、現在は <a href="https://grafana.com/oss/loki/">Grafana Loki</a> に切り替わっています。</p>
 <p>今回は、2年半とてもお世話になった <a href="https://www.graylog.org/">Graylog</a> を使うと、
-<a href="posts/log-management-in-syslog">syslog を使ったログ管理について考察してみる</a> と同じ観点で、
+<a href="../../posts/log-management-in-syslog">syslog を使ったログ管理について考察してみる</a> と同じ観点で、
 どのようなログ管理を実現できるのかについて書いていきます。</p>
 <h1 id="アーキテクチャ">アーキテクチャ</h1>
 <p><a href="https://www.graylog.org/">Graylog</a> は、単体で動くものではなく、
@@ -79,7 +79,7 @@ Graylog のプロトコルである GELF を Output するサードパーティ�
 ログのファイルを読み込み、 Graylog に転送するという要件を満たしているため、採用しました。</p>
 <p><a href="https://docs.graylog.org/docs/beats">https://docs.graylog.org/docs/beats</a></p>
 <h1 id="graylog-でのログ管理">Graylog でのログ管理</h1>
-<p><a href="posts/log-management-in-syslog">syslog を使ったログ管理について考察してみる</a> と同じ観点で、
+<p><a href="../../posts/log-management-in-syslog">syslog を使ったログ管理について考察してみる</a> と同じ観点で、
 Graylog でのログ管理を使うとどうなりそうかについて考えてみます。</p>
 <h2 id="ログ出力">ログ出力</h2>
 <p>アプリケーションは、ログをどこかにファイルで出力していれば、

@@ -33,7 +33,7 @@
 <p><a href="https://qiita.com/advent-calendar/2021/sakura">さくらインターネット Advent Calendar 2021</a> 19日目の記事になります。</p>
 <p>現在、「さくらの専用サーバ PHY」のログ管理基盤にて、
 <a href="https://grafana.com/oss/loki/">Grafana Loki</a> を利用しています。</p>
-<p>今回は、 <a href="posts/log-management-in-graylog">Graylog を使ったログ管理基盤</a> を運用し得られた知見、
+<p>今回は、 <a href="../../posts/log-management-in-graylog">Graylog を使ったログ管理基盤</a> を運用し得られた知見、
 「さくらの専用サーバ PHY」での <a href="https://grafana.com/oss/loki/">Grafana Loki</a> のアーキテクチャと
 <a href="https://www.graylog.org/">Graylog</a> の運用と異なる点はどうであるかについて書いていきます。</p>
 <h1 id="graylog-を運用し得られた知見">Graylog を運用し得られた知見</h1>
@@ -109,7 +109,7 @@ Index の重複排除し、すべてのファイルをテーブルごとに1つ�
 <p>Ingester の情報は、 Consul の KVS に保存しています。
 Consul の KVS で保存されている Ingester の情報を参照し、
 Distributor, Querier は、 Ingester に接続する構成をとっています。</p>
-<p><a href="posts/technologies-required-for-container-orchestration">コンテナオーケストレーションにて必要になってくるもの</a> で登場した Consul を利用していたため、この構成を取ることにしました。</p>
+<p><a href="../../posts/technologies-required-for-container-orchestration">コンテナオーケストレーションにて必要になってくるもの</a> で登場した Consul を利用していたため、この構成を取ることにしました。</p>
 <h2 id="オブジェクトストレージ">オブジェクトストレージ</h2>
 <p>弊社にて提供している Amazon S3 互換のサービスになります。</p>
 <p><a href="https://cloud.sakura.ad.jp/specification/object-storage/">https://cloud.sakura.ad.jp/specification/object-storage/</a></p>
@@ -126,7 +126,7 @@ Graylog を使っていたときと同じく、各コンポーネントが1つ�
 <a href="https://grafana.com/docs/loki/latest/logql/">LogQL</a> でのログ検索についてテキストに起こし、
 チームメンバーにハンズオンする機会を設け、 Grafana Loki でのログ検索についてのキャッチアップを実施しました。</p>
 <p>Grafana Loki へのログ転送には、 <a href="https://grafana.com/docs/loki/latest/clients/promtail/">Promtail</a> を使うのが、よく見る構成かなと思います。
-「さくらの専用サーバ PHY」では、 <a href="https://vector.dev/">VECTOR</a> を使い、 Grafana Loki にログを転送しています。
+「さくらの専用サーバ PHY」では、 <a href="https://vector.dev/">Vector</a> を使い、 Grafana Loki にログを転送しています。
 <a href="https://qiita.com/advent-calendar/2021/sakura">さくらインターネット Advent Calendar 2021</a> には投稿できる枠が無いため、別の機会に記事にしたいと思っています。</p>
 
 </main>
