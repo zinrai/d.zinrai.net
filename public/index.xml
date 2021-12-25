@@ -6,7 +6,26 @@
     <description>Recent content on command not found:</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Sun, 19 Dec 2021 13:35:41 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 24 Dec 2021 10:07:44 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Grafana Loki を使ったログ監視</title>
+      <link>/posts/log-monitoring-using-grafana-loki/</link>
+      <pubDate>Fri, 24 Dec 2021 10:07:44 +0900</pubDate>
+      
+      <guid>/posts/log-monitoring-using-grafana-loki/</guid>
+      <description>さくらインターネット Advent Calendar 2021 24日目の記事になります。
+前回は、 Grafana Loki を使ったログ管理基盤 について書きました。
+今回は、 Grafana Loki を使いログを監視したい場合、どのような構成となるのか、 Graylog でのログ監視を考えてみる と比べて何がうれしいのか、 どういう場面でログ監視を使うことになりそうかについて書いていきます。
+Grafana Loki を使ったログ管理基盤 と同じバージョンで話しを進めていきます。
+Grafana Loki でのログ監視 Grafana Loki では、 Ruler というコンポーネントを使いログ監視を実現します。
+Ruler を使えば、 ログ監視が実現できるということはわかりましたが、 Grafana Loki は、クラウドのストレージからログをロードします。 アラートを評価するインターバルは、任意の値を設定できますが、デフォルトは、1分となっています。
+例えば、アラートの設定が、 100 あった場合に、それらを評価するためにログのロードが発生すると、 全てのアラートの評価が終わるまでに、1分以上掛かってしまうのではないかという疑問が浮かびました。
+Ruler のドキュメントを眺めてみると、 Ruler を複数台動かしアラートの評価をシャーディングできるということがわかりました。
+https://grafana.com/docs/loki/v2.2.1/alerting/#scheduling-and-best-practices
+Ruler の情報は Consul の KVS に登録され、 それぞれの Ruler は、 Consul の KVS に登録された Ruler の情報を参照し、 他の Ruler と連携することで、アラートの評価をシャーディングします。
+シャーディングを有効化した5台の Ruler を起動し、2つのアラートを設定し、 Ruler の挙動を確認してみたところ、5台の Ruler で、2つのアラートがそれぞれ評価されるのではなく、 5台の Ruler のうち、2台の Ruler でアラートが評価されていることを Ruler のログから観測できました。</description>
+    </item>
+    
     <item>
       <title>Grafana Loki を使ったログ管理基盤</title>
       <link>/posts/log-management-using-grafana-loki/</link>
