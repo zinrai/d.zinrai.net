@@ -1,0 +1,29 @@
+@startuml
+
+package "Grafana Loki" {
+	[Ruler] as ruler1
+	[Ruler] as ruler2
+	[Ruler] as ruler3
+}
+
+package "オブジェクトストレージ" {
+	[Index]
+	[Chunk]
+}
+
+ruler1 -up-> [Alertmanager]
+ruler1 -down-> [Consul] #blue
+ruler1 -down-> [Index]
+ruler1 -down-> [Chunk]
+
+ruler2 -up-> [Alertmanager]
+ruler2 -down-> [Consul] #blue
+ruler2 -down-> [Index]
+ruler2 -down-> [Chunk]
+
+ruler3 -up-> [Alertmanager]
+ruler3 -down-> [Consul] #blue
+ruler3 -down-> [Index]
+ruler3 -down-> [Chunk]
+
+@enduml
