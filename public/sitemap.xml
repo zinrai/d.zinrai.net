@@ -3,12 +3,15 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/</loc>
-    <lastmod>2021-12-24T10:07:44+09:00</lastmod>
-  </url><url>
-    <loc>/posts/log-monitoring-using-grafana-loki/</loc>
-    <lastmod>2021-12-24T10:07:44+09:00</lastmod>
+    <lastmod>2021-12-25T10:10:07+09:00</lastmod>
   </url><url>
     <loc>/posts/</loc>
+    <lastmod>2021-12-25T10:10:07+09:00</lastmod>
+  </url><url>
+    <loc>/posts/learning-clos-network-topology/</loc>
+    <lastmod>2021-12-25T10:10:07+09:00</lastmod>
+  </url><url>
+    <loc>/posts/log-monitoring-using-grafana-loki/</loc>
     <lastmod>2021-12-24T10:07:44+09:00</lastmod>
   </url><url>
     <loc>/posts/log-management-using-grafana-loki/</loc>

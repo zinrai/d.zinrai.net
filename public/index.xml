@@ -6,7 +6,24 @@
     <description>Recent content on command not found:</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 24 Dec 2021 10:07:44 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 25 Dec 2021 10:10:07 +0900</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>サーバー1台で動かす Clos Network Topology</title>
+      <link>/posts/learning-clos-network-topology/</link>
+      <pubDate>Sat, 25 Dec 2021 10:10:07 +0900</pubDate>
+      
+      <guid>/posts/learning-clos-network-topology/</guid>
+      <description>さくらインターネット Advent Calendar 2021 25日目の記事になります。
+JANOG49 Meeting への登壇が決まり、準備を進めています。 Clos Network Topology を運用するために、どのような取り組みをしていますか というタイトルにて、 Clos Network Topology を題材に、運用している皆さんは、学習・教育という切り口にて、どのような取り組みをしているのかを議論したいという発表になっています。
+JANOG49 Meeting のニュースレターである 最強プログラムの紹介 に、私の発表についての言及があり、震えています。
+今日は、時間の都合にて発表の中には含めることができなかった、 学習のために実装した Clos Network Topology の話を Advent Calender の力を借りて書いていきます。
+Clos Network Topology について、何故このようなことをやろうと思ったのか、 学習のために実装した Clos Network Topology にについての順番で書いていきます。 「何故このようなことをやろうと思ったのか」のボリュームが結構あるため、 実装した Clos Network Topology の内容だけを読みたい方は、「実装のモチベーション」くらいから読み進めてください。
+Clos Network Topology 私は、 BGP を利用した、スケールアウト可能なデータセンターネットワークと理解しています。 IP CLOS, IP Fabric, Clos Network など様々な呼び方をされているように見えるため、 何と呼んだら、これを他の人に伝えられるのかがよくわかっていません。 どなたか詳しい方がいましたら、教えていもらえるとうれしいです。
+今回は、 RFC7938 に出てくる Clos Network Topology という呼び方で話を進めていきます。
+https://tools.ietf.org/html/rfc7938
+学習のモチベーション いくつもの条件が重なり、学習のための Clos Netowork Topology 実装に繋がっているというところを書いていきます。</description>
+    </item>
+    
     <item>
       <title>Grafana Loki を使ったログ監視</title>
       <link>/posts/log-monitoring-using-grafana-loki/</link>
