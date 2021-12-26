@@ -79,8 +79,8 @@ Graylog でのログ管理から、型を管理すること、
 
 [Grafana Loki](https://grafana.com/oss/loki/) は、複数のコンポーネントから構成されています。
 Grafana Loki の各コンポーネントについては、下記のリンク先に詳細が書かれているため、そちらにお任せします。
-( これらが公開されるより前から、 Grafana Loki の利用を進めていましたが、
-自分はここまでの理解をして Grafana Loki を使えていなかったので、とても勉強になりました。 )
+( これらの内容が公開されるより前から、 Grafana Loki の利用を進めていましたが、
+自分はここまでの理解して Grafana Loki を使えていなかったので、とても勉強になりました。 )
 
 * [最短で理解して運用するGrafana Loki](https://zenn.dev/taisho6339/articles/0654040691aaab)
 * [Grafana Lokiで構築する大規模ログモニタリング基盤](https://speakerdeck.com/line_developers/grafana-loki-deep-dive)
@@ -105,6 +105,31 @@ Index の重複排除し、すべてのファイルをテーブルごとに1つ�
 > Note: There should be only 1 compactor instance running at a time that otherwise could create problems and may lead to data loss.
 
 と公式のドキュメントには書かれていたので、 Compactor のプロセスは、1つだけ起動させています。
+
+Grafana Loki v2.2.1 の設定項目について書かれたドキュメントの中に、
+Compactor の起動方法を見付けることができませんでした。
+
+https://grafana.com/docs/loki/v2.2.1/configuration/#supported-contents-and-default-values-of-lokiyaml
+
+Grafana Loki のコミットログを compactor で検索し、
+一番最後にある Pull Request の内容を確認し、
+target: compactor で起動すればよさそうだということを確認しました。
+
+https://github.com/grafana/loki/pull/2526
+
+```
+$ git log | grep compactor | tail
+    * moves compactor config validation to NewCompactor fn
+    * add compactor config to docker config file.
+    add a metric in compactor to record timestamp of last successful run (#2788)
+    improvements for boltdb-shipper compactor (#2640)
+    2. Run the compactor service when using loki with boltdb-shipper in single binary mode without clustering.
+    add compactor details and other boltdb-shipper doc improvments (#2622)
+    fix closing of compressed file from boltdb-shipper compactor (#2574)
+    add some metrics for monitoring compactor (#2548)
+    register boltdb shipper compactor cli flags (#2546)
+    compactor for compacting boltdb files uploaded by shipper (#2526)
+```
 
 ## Consul
 
