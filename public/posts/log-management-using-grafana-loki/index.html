@@ -105,12 +105,13 @@ Index の重複排除し、すべてのファイルをテーブルごとに1つ�
 <p>Note: There should be only 1 compactor instance running at a time that otherwise could create problems and may lead to data loss.</p>
 </blockquote>
 <p>と公式のドキュメントには書かれていたので、 Compactor のプロセスは、1つだけ起動させています。</p>
-<p>Grafana Loki v2.2.1 の設定項目について書かれたドキュメントの中に、
+<p>Grafana Loki v2.2.1 が最新であった当時の設定項目について書かれたドキュメントでは、
 Compactor の起動方法を見付けることができませんでした。</p>
 <p><a href="https://grafana.com/docs/loki/v2.2.1/configuration/#supported-contents-and-default-values-of-lokiyaml">https://grafana.com/docs/loki/v2.2.1/configuration/#supported-contents-and-default-values-of-lokiyaml</a></p>
 <p>Grafana Loki のコミットログを compactor で検索し、
 一番最後にある Pull Request の内容を確認し、
-target: compactor で起動すればよさそうだということを確認しました。</p>
+modules.go に compactor と書かれていたので、
+target: compactor で起動すればよいのかなということを確認しました。</p>
 <p><a href="https://github.com/grafana/loki/pull/2526">https://github.com/grafana/loki/pull/2526</a></p>
 <pre><code>$ git log | grep compactor | tail
     * moves compactor config validation to NewCompactor fn
