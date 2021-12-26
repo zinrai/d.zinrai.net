@@ -106,14 +106,15 @@ Index の重複排除し、すべてのファイルをテーブルごとに1つ�
 
 と公式のドキュメントには書かれていたので、 Compactor のプロセスは、1つだけ起動させています。
 
-Grafana Loki v2.2.1 の設定項目について書かれたドキュメントの中に、
+Grafana Loki v2.2.1 が最新であった当時の設定項目について書かれたドキュメントでは、
 Compactor の起動方法を見付けることができませんでした。
 
 https://grafana.com/docs/loki/v2.2.1/configuration/#supported-contents-and-default-values-of-lokiyaml
 
 Grafana Loki のコミットログを compactor で検索し、
 一番最後にある Pull Request の内容を確認し、
-target: compactor で起動すればよさそうだということを確認しました。
+modules.go に compactor と書かれていたので、
+target: compactor で起動すればよいのかなということを確認しました。
 
 https://github.com/grafana/loki/pull/2526
 
