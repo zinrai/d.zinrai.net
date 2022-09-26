@@ -81,26 +81,26 @@ Nomad では、定義ファイルのことを Job と呼んでいます。</p>
 <p><a href="https://www.nomadproject.io/docs/internals/architecture#job">https://www.nomadproject.io/docs/internals/architecture#job</a></p>
 <p>下記は、 http-echo というアプリケーションを Docker で実行する Job になります。</p>
 <p><a href="https://learn.hashicorp.com/tutorials/nomad/jobs-submit">https://learn.hashicorp.com/tutorials/nomad/jobs-submit</a></p>
-<pre><code>job &quot;docs&quot; {
-  datacenters = [&quot;dc1&quot;]
+<pre tabindex="0"><code>job &#34;docs&#34; {
+  datacenters = [&#34;dc1&#34;]
 
-  group &quot;example&quot; {
+  group &#34;example&#34; {
     network {
-      port &quot;http&quot; {
-        static = &quot;5678&quot;
+      port &#34;http&#34; {
+        static = &#34;5678&#34;
       }
     }
-    task &quot;server&quot; {
-      driver = &quot;docker&quot;
+    task &#34;server&#34; {
+      driver = &#34;docker&#34;
 
       config {
-        image = &quot;hashicorp/http-echo&quot;
-        ports = [&quot;http&quot;]
+        image = &#34;hashicorp/http-echo&#34;
+        ports = [&#34;http&#34;]
         args = [
-          &quot;-listen&quot;,
-          &quot;:5678&quot;,
-          &quot;-text&quot;,
-          &quot;hello world&quot;,
+          &#34;-listen&#34;,
+          &#34;:5678&#34;,
+          &#34;-text&#34;,
+          &#34;hello world&#34;,
         ]
       }
     }

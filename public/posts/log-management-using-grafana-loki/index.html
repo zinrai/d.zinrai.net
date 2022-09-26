@@ -60,7 +60,7 @@ Value には、 integer, string などの型が付いています。
 status: ok のログを出力するアプリケーションのログは、 Elasticsearch に保存されますが、
 status: 200 のログを出力するアプリケーションのログは、 Elasticsearch の型とは異なるため、
 Graylog が下記のエラーを吐き、 Elasticsearch にはログが保存されないということが起きます。</p>
-<pre><code>2020-06-03 17:15:56,386 WARN : org.graylog2.indexer.messages.Messages - Failed to index message: index=&lt;graylog_259&gt; id=&lt;eb0f6651-c443-11eb-87fd-4e70a9bac08c&gt; error=&lt;{&quot;type&quot;:&quot;mapper_parsing_exception&quot;,&quot;reason&quot;:&quot;failed to parse field [status] of type [long] in document with id 'eb0f6651-c443-11eb-87fd-4e70a9bac08c'&quot;,&quot;caused_by&quot;:{&quot;type&quot;:&quot;illegal_argument_exception&quot;,&quot;reason&quot;:&quot;For input string: \&quot;Initial\&quot;&quot;}}&gt;
+<pre tabindex="0"><code>2020-06-03 17:15:56,386 WARN : org.graylog2.indexer.messages.Messages - Failed to index message: index=&lt;graylog_259&gt; id=&lt;eb0f6651-c443-11eb-87fd-4e70a9bac08c&gt; error=&lt;{&#34;type&#34;:&#34;mapper_parsing_exception&#34;,&#34;reason&#34;:&#34;failed to parse field [status] of type [long] in document with id &#39;eb0f6651-c443-11eb-87fd-4e70a9bac08c&#39;&#34;,&#34;caused_by&#34;:{&#34;type&#34;:&#34;illegal_argument_exception&#34;,&#34;reason&#34;:&#34;For input string: \&#34;Initial\&#34;&#34;}}&gt;
 </code></pre><p>Elasticsearch に詳しくならなくても、 Graylog を使えてしまうので、
 チームメンバーから「何か特定のアプリケーションのログが検索に引っ掛からないのだけれど」ということを言われ、
 調査したことにより、状況を把握し、対処する結果となりました。</p>
@@ -122,7 +122,7 @@ Compactor の起動方法を見付けることができませんでした。</p>
 modules.go に compactor と書かれていたので、
 target: compactor で起動すればよいのかなということを確認しました。</p>
 <p><a href="https://github.com/grafana/loki/pull/2526">https://github.com/grafana/loki/pull/2526</a></p>
-<pre><code>$ git log | grep compactor | tail
+<pre tabindex="0"><code>$ git log | grep compactor | tail
     * moves compactor config validation to NewCompactor fn
     * add compactor config to docker config file.
     add a metric in compactor to record timestamp of last successful run (#2788)

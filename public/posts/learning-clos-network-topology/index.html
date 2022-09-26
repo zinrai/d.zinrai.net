@@ -178,7 +178,7 @@ Clos Network Topology の構成する LXC コンテナをセットアップし�
 </ul>
 <h2 id="コンテナ生成">コンテナ生成</h2>
 <p>コンテナ生成用のパラメータを出力し、別のコマンドから呼び出しコンテナを生成します。</p>
-<pre><code>./generator.py --spine
+<pre tabindex="0"><code>./generator.py --spine
 spine0-4200000000
 spine1-4200000000
 spine2-4200000000
@@ -194,7 +194,7 @@ spine9-4200000000
 別コマンドから呼び出し、ネットワークブリッジを生成します。
 ネットワークインタフェース名の上限が 16 のため、下記のような出力にしています。</p>
 <p><a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/uapi/linux/if.h#n33">https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/include/uapi/linux/if.h#n33</a></p>
-<pre><code>./generator.py --slbrint
+<pre tabindex="0"><code>./generator.py --slbrint
 s0-l1-1
 s0-l2-2
 s0-l1-3
@@ -211,22 +211,22 @@ s0-l2-10
 <p>JSON で生成した BIRD 用のコンフィグパラメータを
 Python のテンプレートエンジンである <a href="https://jinja.palletsprojects.com/en/3.0.x/">jinja</a> に食わせて、
 BIRD のコンフィグを生成しました。</p>
-<pre><code>./generator.py --spinebgp
+<pre tabindex="0"><code>./generator.py --spinebgp
 [
     {
-        &quot;name&quot;: &quot;spine0&quot;,
-        &quot;asn&quot;: &quot;4200000000&quot;,
-        &quot;ipv4addr&quot;: &quot;10.0.0.1&quot;,
-        &quot;leaf&quot;: [
+        &#34;name&#34;: &#34;spine0&#34;,
+        &#34;asn&#34;: &#34;4200000000&#34;,
+        &#34;ipv4addr&#34;: &#34;10.0.0.1&#34;,
+        &#34;leaf&#34;: [
             {
-                &quot;spine&quot;: &quot;spine0&quot;,
-                &quot;spine_asn&quot;: &quot;4200000000&quot;,
-                &quot;leaf&quot;: &quot;leaf1&quot;,
-                &quot;leaf_asn&quot;: &quot;4200000011&quot;,
-                &quot;bridge_name&quot;: &quot;s0-l1-1&quot;,
-                &quot;spine_index&quot;: &quot;1&quot;,
-                &quot;leaf_index&quot;: &quot;1&quot;,
-                &quot;ipv6addr&quot;: &quot;fe80::1:1&quot;
+                &#34;spine&#34;: &#34;spine0&#34;,
+                &#34;spine_asn&#34;: &#34;4200000000&#34;,
+                &#34;leaf&#34;: &#34;leaf1&#34;,
+                &#34;leaf_asn&#34;: &#34;4200000011&#34;,
+                &#34;bridge_name&#34;: &#34;s0-l1-1&#34;,
+                &#34;spine_index&#34;: &#34;1&#34;,
+                &#34;leaf_index&#34;: &#34;1&#34;,
+                &#34;ipv6addr&#34;: &#34;fe80::1:1&#34;
             },
 ...
 </code></pre><h2 id="border-pod">Border Pod</h2>
@@ -236,7 +236,7 @@ BIRD のコンフィグを生成しました。</p>
 BGP にてデフォルトルートを広報し、 Bordear Leaf, Spine, Leaf, ToR, Server に伝搬させることで、
 Clos Network Topology 内に無い IP アドレスに対しての通信が、ルーターへ向かっていくという実装にしました。</p>
 <h2 id="セットアップ">セットアップ</h2>
-<pre><code>./clos-setup.sh
+<pre tabindex="0"><code>./clos-setup.sh
 </code></pre><p>のコマンド一発で、 Clos Network Topology を構築できるようになりました。</p>
 <p>BIRD のコンフィグ用に生成した JSON を使い、 <a href="../../imgs/learning-clos-network-topology/clos-network-topology.png">セットアップした Clos Network Topology を PlantUML で 図</a> にしてみました。</p>
 <h1 id="はまったところ">はまったところ</h1>
@@ -249,7 +249,7 @@ BIRD の挙動を確認しながらコンフィグを煮詰めました。
 BIRD で BGP Unnumbered した唯一の人間なのではないかと勝手に思っています。</p>
 <h2 id="linux-のルーティングテーブルに-bgp-unumbered-の経路がインストールされない">Linux のルーティングテーブルに BGP Unumbered の経路がインストールされない</h2>
 <p>BIRD で BGP Unnumbered すると、下記のように Linux のルーティングテーブルに経路がインストールされるはずなのですが、そうなりませんでした。</p>
-<pre><code>root@tor9-4200001010:~# ip route
+<pre tabindex="0"><code>root@tor9-4200001010:~# ip route
 default proto bird metric 32
         nexthop via inet6 fe80::48cb:67ff:fe83:d2b dev l1-t9-a weight 1
         nexthop via inet6 fe80::a83e:98ff:fec2:d510 dev l2-t9-b weight 1
@@ -299,7 +299,7 @@ BIRD 2.0.8 をビルドし、 Linux のルーティングテーブルへのイ�
 <p>Server から Google Public DNS に traceroute (8) してみて、
 ルーター経由でインターネットに抜けていることを確認し、
 想像で作った構成が実際に動いたことに感動しました。</p>
-<pre><code>root@server99-4200002099:~# traceroute -n 8.8.8.8
+<pre tabindex="0"><code>root@server99-4200002099:~# traceroute -n 8.8.8.8
 traceroute to 8.8.8.8 (8.8.8.8), 30 hops max, 60 byte packets
  1  10.0.32.20  0.550 ms  0.018 ms  0.014 ms
  2  10.0.16.19  0.420 ms  0.022 ms  0.018 ms
@@ -322,7 +322,7 @@ root@server99-4200002099:~#
 <p>Server から別の Server に traceroute (8) してみて、
 Spine, Leaf, ToR を経由し、別の Server に到達していることを確認し、
 作った環境が実際に動いていることに感動しました。</p>
-<pre><code>root@server99-4200002099:~# traceroute -n  10.1.0.1
+<pre tabindex="0"><code>root@server99-4200002099:~# traceroute -n  10.1.0.1
 traceroute to 10.1.0.1 (10.1.0.1), 30 hops max, 60 byte packets
  1  10.0.32.20  0.575 ms  0.014 ms  0.009 ms
  2  10.0.16.19  0.341 ms  0.016 ms  0.013 ms

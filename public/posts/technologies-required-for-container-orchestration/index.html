@@ -102,7 +102,7 @@ Nomad が Consul に、どのアプリケーションが、どのサーバーで
 <h2 id="dns-interface">DNS Interface</h2>
 <p><a href="https://www.consul.io/docs/discovery/dns">https://www.consul.io/docs/discovery/dns</a></p>
 <p>cerebro というアプリケーションが起動している Nomad Client の IP アドレスが返ってきている例</p>
-<pre><code>root@nomad-client01-dev:~# dig -p 8600 @127.0.0.1 cerebro.service.consul
+<pre tabindex="0"><code>root@nomad-client01-dev:~# dig -p 8600 @127.0.0.1 cerebro.service.consul
 
 ; &lt;&lt;&gt;&gt; DiG 9.16.22-Debian &lt;&lt;&gt;&gt; -p 8600 @127.0.0.1 cerebro.service.consul
 ; (1 server found)
@@ -130,110 +130,110 @@ root@nomad-client01-dev:~#
 </code></pre><h2 id="http-api">HTTP API</h2>
 <p><a href="https://www.consul.io/api/catalog.html">https://www.consul.io/api/catalog.html</a></p>
 <p>cerebro というアプリケーションが起動している Nomad Client の IP アドレスが返ってきている例</p>
-<pre><code>$ curl 192.168.10.107:8500/v1/catalog/service/cerebro | jq .
+<pre tabindex="0"><code>$ curl 192.168.10.107:8500/v1/catalog/service/cerebro | jq .
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100  1869  100  1869    0     0  21988      0 --:--:-- --:--:-- --:--:-- 21988
 [
   {
-    &quot;ID&quot;: &quot;c0654a60-5722-2a8b-9010-026180f5253e&quot;,
-    &quot;Node&quot;: &quot;nomad-client01-dev&quot;,
-    &quot;Address&quot;: &quot;192.168.10.107&quot;,
-    &quot;Datacenter&quot;: &quot;dc1&quot;,
-    &quot;TaggedAddresses&quot;: {
-      &quot;lan&quot;: &quot;192.168.10.107&quot;,
-      &quot;lan_ipv4&quot;: &quot;192.168.10.107&quot;,
-      &quot;wan&quot;: &quot;192.168.10.107&quot;,
-      &quot;wan_ipv4&quot;: &quot;192.168.10.107&quot;
+    &#34;ID&#34;: &#34;c0654a60-5722-2a8b-9010-026180f5253e&#34;,
+    &#34;Node&#34;: &#34;nomad-client01-dev&#34;,
+    &#34;Address&#34;: &#34;192.168.10.107&#34;,
+    &#34;Datacenter&#34;: &#34;dc1&#34;,
+    &#34;TaggedAddresses&#34;: {
+      &#34;lan&#34;: &#34;192.168.10.107&#34;,
+      &#34;lan_ipv4&#34;: &#34;192.168.10.107&#34;,
+      &#34;wan&#34;: &#34;192.168.10.107&#34;,
+      &#34;wan_ipv4&#34;: &#34;192.168.10.107&#34;
     },
-    &quot;NodeMeta&quot;: {
-      &quot;consul-network-segment&quot;: &quot;&quot;
+    &#34;NodeMeta&#34;: {
+      &#34;consul-network-segment&#34;: &#34;&#34;
     },
-    &quot;ServiceKind&quot;: &quot;&quot;,
-    &quot;ServiceID&quot;: &quot;_nomad-task-2e81934f-3fd7-1fd6-9339-5ae120e1f314-group-cerebro-cerebro-http&quot;,
-    &quot;ServiceName&quot;: &quot;cerebro&quot;,
-    &quot;ServiceTags&quot;: [
-      &quot;traefik.enable=true&quot;,
-      &quot;traefik.tags=service&quot;,
-      &quot;traefik.frontend.rule=PathPrefixStrip:/cerebro/&quot;
+    &#34;ServiceKind&#34;: &#34;&#34;,
+    &#34;ServiceID&#34;: &#34;_nomad-task-2e81934f-3fd7-1fd6-9339-5ae120e1f314-group-cerebro-cerebro-http&#34;,
+    &#34;ServiceName&#34;: &#34;cerebro&#34;,
+    &#34;ServiceTags&#34;: [
+      &#34;traefik.enable=true&#34;,
+      &#34;traefik.tags=service&#34;,
+      &#34;traefik.frontend.rule=PathPrefixStrip:/cerebro/&#34;
     ],
-    &quot;ServiceAddress&quot;: &quot;192.168.10.107&quot;,
-    &quot;ServiceTaggedAddresses&quot;: {
-      &quot;lan_ipv4&quot;: {
-        &quot;Address&quot;: &quot;192.168.10.107&quot;,
-        &quot;Port&quot;: 24623
+    &#34;ServiceAddress&#34;: &#34;192.168.10.107&#34;,
+    &#34;ServiceTaggedAddresses&#34;: {
+      &#34;lan_ipv4&#34;: {
+        &#34;Address&#34;: &#34;192.168.10.107&#34;,
+        &#34;Port&#34;: 24623
       },
-      &quot;wan_ipv4&quot;: {
-        &quot;Address&quot;: &quot;192.168.10.107&quot;,
-        &quot;Port&quot;: 24623
+      &#34;wan_ipv4&#34;: {
+        &#34;Address&#34;: &#34;192.168.10.107&#34;,
+        &#34;Port&#34;: 24623
       }
     },
-    &quot;ServiceWeights&quot;: {
-      &quot;Passing&quot;: 1,
-      &quot;Warning&quot;: 1
+    &#34;ServiceWeights&#34;: {
+      &#34;Passing&#34;: 1,
+      &#34;Warning&#34;: 1
     },
-    &quot;ServiceMeta&quot;: {
-      &quot;external-source&quot;: &quot;nomad&quot;
+    &#34;ServiceMeta&#34;: {
+      &#34;external-source&#34;: &#34;nomad&#34;
     },
-    &quot;ServicePort&quot;: 24623,
-    &quot;ServiceEnableTagOverride&quot;: false,
-    &quot;ServiceProxy&quot;: {
-      &quot;MeshGateway&quot;: {},
-      &quot;Expose&quot;: {}
+    &#34;ServicePort&#34;: 24623,
+    &#34;ServiceEnableTagOverride&#34;: false,
+    &#34;ServiceProxy&#34;: {
+      &#34;MeshGateway&#34;: {},
+      &#34;Expose&#34;: {}
     },
-    &quot;ServiceConnect&quot;: {},
-    &quot;CreateIndex&quot;: 5059,
-    &quot;ModifyIndex&quot;: 5059
+    &#34;ServiceConnect&#34;: {},
+    &#34;CreateIndex&#34;: 5059,
+    &#34;ModifyIndex&#34;: 5059
   },
   {
-    &quot;ID&quot;: &quot;9fe2da3b-8448-faeb-593a-47e2d9446769&quot;,
-    &quot;Node&quot;: &quot;nomad-client02-dev&quot;,
-    &quot;Address&quot;: &quot;192.168.10.108&quot;,
-    &quot;Datacenter&quot;: &quot;dc1&quot;,
-    &quot;TaggedAddresses&quot;: {
-      &quot;lan&quot;: &quot;192.168.10.108&quot;,
-      &quot;lan_ipv4&quot;: &quot;192.168.10.108&quot;,
-      &quot;wan&quot;: &quot;192.168.10.108&quot;,
-      &quot;wan_ipv4&quot;: &quot;192.168.10.108&quot;
+    &#34;ID&#34;: &#34;9fe2da3b-8448-faeb-593a-47e2d9446769&#34;,
+    &#34;Node&#34;: &#34;nomad-client02-dev&#34;,
+    &#34;Address&#34;: &#34;192.168.10.108&#34;,
+    &#34;Datacenter&#34;: &#34;dc1&#34;,
+    &#34;TaggedAddresses&#34;: {
+      &#34;lan&#34;: &#34;192.168.10.108&#34;,
+      &#34;lan_ipv4&#34;: &#34;192.168.10.108&#34;,
+      &#34;wan&#34;: &#34;192.168.10.108&#34;,
+      &#34;wan_ipv4&#34;: &#34;192.168.10.108&#34;
     },
-    &quot;NodeMeta&quot;: {
-      &quot;consul-network-segment&quot;: &quot;&quot;
+    &#34;NodeMeta&#34;: {
+      &#34;consul-network-segment&#34;: &#34;&#34;
     },
-    &quot;ServiceKind&quot;: &quot;&quot;,
-    &quot;ServiceID&quot;: &quot;_nomad-task-3072b120-3e79-79db-16f4-5f2726d1d057-group-cerebro-cerebro-http&quot;,
-    &quot;ServiceName&quot;: &quot;cerebro&quot;,
-    &quot;ServiceTags&quot;: [
-      &quot;traefik.enable=true&quot;,
-      &quot;traefik.tags=service&quot;,
-      &quot;traefik.frontend.rule=PathPrefixStrip:/cerebro/&quot;
+    &#34;ServiceKind&#34;: &#34;&#34;,
+    &#34;ServiceID&#34;: &#34;_nomad-task-3072b120-3e79-79db-16f4-5f2726d1d057-group-cerebro-cerebro-http&#34;,
+    &#34;ServiceName&#34;: &#34;cerebro&#34;,
+    &#34;ServiceTags&#34;: [
+      &#34;traefik.enable=true&#34;,
+      &#34;traefik.tags=service&#34;,
+      &#34;traefik.frontend.rule=PathPrefixStrip:/cerebro/&#34;
     ],
-    &quot;ServiceAddress&quot;: &quot;192.168.10.108&quot;,
-    &quot;ServiceTaggedAddresses&quot;: {
-      &quot;lan_ipv4&quot;: {
-        &quot;Address&quot;: &quot;192.168.10.108&quot;,
-        &quot;Port&quot;: 31601
+    &#34;ServiceAddress&#34;: &#34;192.168.10.108&#34;,
+    &#34;ServiceTaggedAddresses&#34;: {
+      &#34;lan_ipv4&#34;: {
+        &#34;Address&#34;: &#34;192.168.10.108&#34;,
+        &#34;Port&#34;: 31601
       },
-      &quot;wan_ipv4&quot;: {
-        &quot;Address&quot;: &quot;192.168.10.108&quot;,
-        &quot;Port&quot;: 31601
+      &#34;wan_ipv4&#34;: {
+        &#34;Address&#34;: &#34;192.168.10.108&#34;,
+        &#34;Port&#34;: 31601
       }
     },
-    &quot;ServiceWeights&quot;: {
-      &quot;Passing&quot;: 1,
-      &quot;Warning&quot;: 1
+    &#34;ServiceWeights&#34;: {
+      &#34;Passing&#34;: 1,
+      &#34;Warning&#34;: 1
     },
-    &quot;ServiceMeta&quot;: {
-      &quot;external-source&quot;: &quot;nomad&quot;
+    &#34;ServiceMeta&#34;: {
+      &#34;external-source&#34;: &#34;nomad&#34;
     },
-    &quot;ServicePort&quot;: 31601,
-    &quot;ServiceEnableTagOverride&quot;: false,
-    &quot;ServiceProxy&quot;: {
-      &quot;MeshGateway&quot;: {},
-      &quot;Expose&quot;: {}
+    &#34;ServicePort&#34;: 31601,
+    &#34;ServiceEnableTagOverride&#34;: false,
+    &#34;ServiceProxy&#34;: {
+      &#34;MeshGateway&#34;: {},
+      &#34;Expose&#34;: {}
     },
-    &quot;ServiceConnect&quot;: {},
-    &quot;CreateIndex&quot;: 5060,
-    &quot;ModifyIndex&quot;: 5060
+    &#34;ServiceConnect&#34;: {},
+    &#34;CreateIndex&#34;: 5060,
+    &#34;ModifyIndex&#34;: 5060
   }
 ]
 </code></pre><h2 id="consul-を使った-http-エンドポイント生成">Consul を使った HTTP エンドポイント生成</h2>

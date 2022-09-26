@@ -93,7 +93,7 @@ HTTP, TCP, ICMP など対象の外形をメトリクスとして取得したい�
 <p>どの対象に対して、どのようなメトリクスを取得するのかを、
 GET リクエストのパラメータに含めるところが、 Proxy exporter の特徴となっています。
 下記は、 192.168.2.100 の対象に対して ICMP のメトリクスを取得したいときのリクエストの例になります。</p>
-<pre><code>$ curl http://192.168.2.10:9115/probe?module=icmp&amp;target=192.168.2.100
+<pre tabindex="0"><code>$ curl http://192.168.2.10:9115/probe?module=icmp&amp;target=192.168.2.100
 </code></pre><p>HTTP, TCP, ICMP などで対象の外形をメトリクスとして取得したい場合は、
 Blackbox exporter という Exporter を使います。</p>
 <p><a href="https://github.com/prometheus/blackbox_exporter">https://github.com/prometheus/blackbox_exporter</a></p>

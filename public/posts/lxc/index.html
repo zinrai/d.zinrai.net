@@ -39,28 +39,28 @@
 </div>
 
 <main>
-<pre><code>$ uname -srv
+<pre tabindex="0"><code>$ uname -srv
 Linux 4.19.0-9-amd64 #1 SMP Debian 4.19.118-2+deb10u1 (2020-06-07)
 $ cat /etc/debian_version
 10.4
 </code></pre><p>依存関係でいろいろ入ってしまうけれども iptables, dnsmasq, bridge-utils
 それぞれを操作するのが面倒なので、 virsh (1) で全てよしなにやってもらうことにした。</p>
-<pre><code>% apt-get install libvirt-clients libvirt-daemon-system dnsmasq bridge-utils
-</code></pre><pre><code>% virsh net-list
+<pre tabindex="0"><code>% apt-get install libvirt-clients libvirt-daemon-system dnsmasq bridge-utils
+</code></pre><pre tabindex="0"><code>% virsh net-list
  Name      State    Autostart   Persistent
  --------------------------------------------
   default   active   no          yes
-</code></pre><pre><code>$ ip addr show virbr0
+</code></pre><pre tabindex="0"><code>$ ip addr show virbr0
 3: virbr0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP group default qlen 1000
     link/ether 52:54:00:75:2f:a9 brd ff:ff:ff:ff:ff:ff
     inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0
        valid_lft forever preferred_lft forever
 </code></pre><p>LXC インストール</p>
-<pre><code>% apt-get install lxc
+<pre tabindex="0"><code>% apt-get install lxc
 </code></pre><p>LXC コンテナの作成</p>
-<pre><code>% MIRROR=http://ftp.jp.debian.org/debian lxc-create -n sid64 -t debian -- -r sid
+<pre tabindex="0"><code>% MIRROR=http://ftp.jp.debian.org/debian lxc-create -n sid64 -t debian -- -r sid
 </code></pre><p>LXC のコンフィグについては lxc.container.conf (5) を参照</p>
-<pre><code>% cat /var/lib/lxc/sid64/config
+<pre tabindex="0"><code>% cat /var/lib/lxc/sid64/config
 # Template used to create this container: /usr/share/lxc/templates/lxc-debian
 # Parameters passed to the template: -r sid
 # Template script checksum (SHA-1): d5aa397522e36a17c64c014dd63c70d8607c9873

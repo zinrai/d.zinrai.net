@@ -71,10 +71,10 @@
     <loc>/tags/debian/</loc>
     <lastmod>2020-09-30T00:27:00+09:00</lastmod>
   </url><url>
-    <loc>/posts/lxc/</loc>
+    <loc>/tags/lxc/</loc>
     <lastmod>2020-09-29T17:50:53+09:00</lastmod>
   </url><url>
-    <loc>/tags/lxc/</loc>
+    <loc>/posts/lxc/</loc>
     <lastmod>2020-09-29T17:50:53+09:00</lastmod>
   </url><url>
     <loc>/tags/chroot/</loc>
@@ -86,16 +86,16 @@
     <loc>/tags/overlayfs/</loc>
     <lastmod>2020-09-28T22:59:31+09:00</lastmod>
   </url><url>
-    <loc>/posts/openconnect/</loc>
-    <lastmod>2019-04-04T01:27:45+09:00</lastmod>
-  </url><url>
     <loc>/tags/openconnect/</loc>
     <lastmod>2019-04-04T01:27:45+09:00</lastmod>
   </url><url>
-    <loc>/posts/hugo/</loc>
-    <lastmod>2019-01-19T21:47:42+09:00</lastmod>
+    <loc>/posts/openconnect/</loc>
+    <lastmod>2019-04-04T01:27:45+09:00</lastmod>
   </url><url>
     <loc>/tags/hugo/</loc>
+    <lastmod>2019-01-19T21:47:42+09:00</lastmod>
+  </url><url>
+    <loc>/posts/hugo/</loc>
     <lastmod>2019-01-19T21:47:42+09:00</lastmod>
   </url><url>
     <loc>/about/</loc>

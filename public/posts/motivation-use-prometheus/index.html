@@ -51,7 +51,7 @@ Prometheus を使うと何がうれしいのかを考えてみます。</p>
 <h2 id="メトリクス">メトリクス</h2>
 <p>Prometheus は、下記のような形式にて対象の情報を取得し、メトリクスを呼ばれています。</p>
 <p>メモリ利用量のメトリクスの例</p>
-<pre><code># HELP node_memory_MemAvailable_bytes Memory information field MemAvailable_bytes.
+<pre tabindex="0"><code># HELP node_memory_MemAvailable_bytes Memory information field MemAvailable_bytes.
 # TYPE node_memory_MemAvailable_bytes gauge
 node_memory_MemAvailable_bytes 6.2036496384e+10
 </code></pre><h2 id="exporter">Exporter</h2>
@@ -76,7 +76,7 @@ Prometheus のモニタリング対象として呼び出すことができるよ
 <p>下記は、「物理サーバー」を phy-server 、
 「スイッチ」を phy-switch という「サービス」として Consul に登録した場合に、
 Prometheus でモニタリングの対象とする設定の例になります。</p>
-<pre><code># Prometheus のコンフィグ
+<pre tabindex="0"><code># Prometheus のコンフィグ
 scrape_configs:
 - job_name: phy-server
   consul_sd_configs:

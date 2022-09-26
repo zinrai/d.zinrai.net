@@ -41,17 +41,17 @@
 <main>
 <p>仕事で様々なバージョンの Debian パッケージを作らなければならなかったとき、
 環境を用意するコストがとても低くて重宝した。</p>
-<pre><code>% apt-get install cowbuilder
+<pre tabindex="0"><code>% apt-get install cowbuilder
 </code></pre><p>chroot 環境の作成</p>
-<pre><code>% cowbuilder --create --distribution buster --architecture amd64 --basepath  /var/cache/pbuilder/buster64.cow
+<pre tabindex="0"><code>% cowbuilder --create --distribution buster --architecture amd64 --basepath  /var/cache/pbuilder/buster64.cow
 </code></pre><p>chroot 環境へのログイン</p>
-<pre><code># cowbuilder --login --basepath /var/cache/pbuilder/buster64.cow
+<pre tabindex="0"><code># cowbuilder --login --basepath /var/cache/pbuilder/buster64.cow
 </code></pre><p>&ndash;save オプションを付けると chroot 環境への変更を保存できる。</p>
-<pre><code>% cowbuilder --login --save --basepath /var/cache/pbuilder/buster64.cow
+<pre tabindex="0"><code>% cowbuilder --login --save --basepath /var/cache/pbuilder/buster64.cow
 </code></pre><p>bind mount</p>
-<pre><code>% cowbuilder --login --save --bindmount /home/workdir --basepath /var/cache/pbuilder/buster64.cow
+<pre tabindex="0"><code>% cowbuilder --login --save --bindmount /home/workdir --basepath /var/cache/pbuilder/buster64.cow
 </code></pre><p>下記を実行し、作成した chroot 環境をまとめて更新していた。</p>
-<pre><code>% for a in /var/cache/pbuilder/*.cow; do cowbuilder --update --basepath $a; done
+<pre tabindex="0"><code>% for a in /var/cache/pbuilder/*.cow; do cowbuilder --update --basepath $a; done
 </code></pre>
 </main>
 
