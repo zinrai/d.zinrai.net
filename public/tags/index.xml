@@ -4,89 +4,72 @@
     <title>Tags on command not found:</title>
     <link>/tags/</link>
     <description>Recent content in Tags on command not found:</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 11 Dec 2020 07:18:38 +0900</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Dec 2020 07:18:38 +0900</lastBuildDate>
+    <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>prometheus</title>
+      <title>Prometheus</title>
       <link>/tags/prometheus/</link>
       <pubDate>Fri, 11 Dec 2020 07:18:38 +0900</pubDate>
-      
       <guid>/tags/prometheus/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>promxy</title>
+      <title>Promxy</title>
       <link>/tags/promxy/</link>
       <pubDate>Fri, 11 Dec 2020 07:18:38 +0900</pubDate>
-      
       <guid>/tags/promxy/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>cowbuilder</title>
+      <title>Cowbuilder</title>
       <link>/tags/cowbuilder/</link>
       <pubDate>Wed, 30 Sep 2020 00:27:00 +0900</pubDate>
-      
       <guid>/tags/cowbuilder/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>debian</title>
+      <title>Debian</title>
       <link>/tags/debian/</link>
       <pubDate>Wed, 30 Sep 2020 00:27:00 +0900</pubDate>
-      
       <guid>/tags/debian/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>lxc</title>
+      <title>Lxc</title>
       <link>/tags/lxc/</link>
       <pubDate>Tue, 29 Sep 2020 17:50:53 +0900</pubDate>
-      
       <guid>/tags/lxc/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>chroot</title>
+      <title>Chroot</title>
       <link>/tags/chroot/</link>
       <pubDate>Mon, 28 Sep 2020 22:59:31 +0900</pubDate>
-      
       <guid>/tags/chroot/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>overlayfs</title>
+      <title>Overlayfs</title>
       <link>/tags/overlayfs/</link>
       <pubDate>Mon, 28 Sep 2020 22:59:31 +0900</pubDate>
-      
       <guid>/tags/overlayfs/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>openconnect</title>
+      <title>Openconnect</title>
       <link>/tags/openconnect/</link>
       <pubDate>Thu, 04 Apr 2019 01:27:45 +0900</pubDate>
-      
       <guid>/tags/openconnect/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>hugo</title>
+      <title>Hugo</title>
       <link>/tags/hugo/</link>
       <pubDate>Sat, 19 Jan 2019 21:47:42 +0900</pubDate>
-      
       <guid>/tags/hugo/</guid>
       <description></description>
     </item>
-    
   </channel>
 </rss>

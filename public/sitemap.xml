@@ -62,10 +62,10 @@
     <loc>/tags/</loc>
     <lastmod>2020-12-11T07:18:38+09:00</lastmod>
   </url><url>
-    <loc>/tags/cowbuilder/</loc>
+    <loc>/posts/cowbuilder/</loc>
     <lastmod>2020-09-30T00:27:00+09:00</lastmod>
   </url><url>
-    <loc>/posts/cowbuilder/</loc>
+    <loc>/tags/cowbuilder/</loc>
     <lastmod>2020-09-30T00:27:00+09:00</lastmod>
   </url><url>
     <loc>/tags/debian/</loc>
@@ -97,9 +97,6 @@
   </url><url>
     <loc>/posts/hugo/</loc>
     <lastmod>2019-01-19T21:47:42+09:00</lastmod>
-  </url><url>
-    <loc>/about/</loc>
-    <priority>0</priority>
   </url><url>
     <loc>/categories/</loc>
   </url>
