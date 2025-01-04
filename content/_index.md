@@ -2,4 +2,4 @@
 title: Home
 ---
 
-[github.com/zinrai/d.zinrai.net](https://github.com/zinrai/d.zinrai.net)
+[プロフィール](https://hub.zinrai.info)

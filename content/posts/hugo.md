@@ -1,5 +1,5 @@
 ---
-title: "HUGO"
+title: "Hugo"
 date: 2019-01-19T21:47:42+09:00
 tags: ['hugo', 'debian']
 ---

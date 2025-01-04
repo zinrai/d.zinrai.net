@@ -142,7 +142,7 @@
       <description>GlobalProtect で VPN 接続する機会があり、 Mac も Windows も持っていないのでどうしたものかと調べていたところ、 OpenConnect というソフトウェアで GlobalProtect に VPN 接続することができることを知ったので記録として残しておく。 OpenConnect の開発者と Debian パッケージのメンテナーありがとう。&#xA;openconnect&#xA;https://packages.debian.org/ja/sid/openconnect&#xA;環境 $ lsb_release -a No LSB modules are available. Distributor ID: Debian Description: Debian GNU/Linux buster/sid Release: unstable Codename: sid $ uname -a Linux koyomi 4.19.0-4-amd64 #1 SMP Debian 4.19.28-2 (2019-03-15) x86_64 GNU/Linux fchu@koyomi:~$ lsb_release -a No LSB modules are available. Distributor ID: Debian Description: Debian GNU/Linux buster/sid Release: unstable Codename: sid $ apt-cache show openconnect Package: openconnect Version: 8.</description>
     </item>
     <item>
-      <title>HUGO</title>
+      <title>Hugo</title>
       <link>/posts/hugo/</link>
       <pubDate>Sat, 19 Jan 2019 21:47:42 +0900</pubDate>
       <guid>/posts/hugo/</guid>
