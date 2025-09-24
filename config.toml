@@ -12,7 +12,3 @@ theme = "hugo-xmin"
     name = "Profile"
     url = "https://hub.zinrai.info"
     weight = 2
-[[menu.main]]
-    name = "Tags"
-    url = "/tags/"
-    weight = 3
