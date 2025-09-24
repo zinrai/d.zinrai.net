@@ -1,9 +1,0 @@
-@startuml
-
-node "Server" as GraylogServer {
-	[Graylog] -> [Graylog Plugin]
-}
-
-[Graylog Plugin] -up-> [Alertmanager]
-
-@enduml
