@@ -9,15 +9,15 @@ Key Management Service である [さくらのクラウド KMS](https://clud.sak
 
 [zinrai/sakura-kms](https://github.com/zinrai/sakura-kms)
 
-# 使い方
+## 使い方
 
 [KMS（Key Management Service）](https://manual.sakura.ad.jp/cloud/appliance/kms/index.html)  のドキュメントより「 KMS キー」を作成済みかつ、 [APIキー](https://manual.sakura.ad.jp/cloud/api/apikey.html) のドキュメントより「さくらのクラウド KMS 」を利用するための API キーを作成済みであることを前提に使い方を説明していきます。
 
-## バイナリのダウンロード
+### バイナリのダウンロード
 
 [zinrai/sakura-kms](https://github.com/zinrai/sakura-kms) からバイナリをダウンロードしてください。
 
-## 環境変数の設定
+### 環境変数の設定
 
 ```
 # 作成した API キーのクレデンシャルを設定する
@@ -28,7 +28,7 @@ $ export SAKURACLOUD_ACCESS_TOKEN_SECRET="your-api-secret"
 $ export SAKURACLOUD_KMS_KEY_ID="110000000000"
 ```
 
-## ファイルの暗号化
+### ファイルの暗号化
 
 ```
 $ cat hello_world.txt
@@ -40,7 +40,7 @@ g6NhbGerYWVzLTI1Ni1nY22ja2V5g6JpZKwxMTM3MDI0NDU1MTeia3YAo2NpcNl3c29zOnYxOmc2Umli
 $
 ```
 
-## ファイルの復号化
+### ファイルの復号化
 
 ```
 $ cat hello_world.txt.enc
@@ -52,7 +52,7 @@ Hello World
 $
 ```
 
-# なんで作ったのか
+## なんで作ったのか
 
 さくらのクラウド KMS は [さくらのクラウド シークレットマネージャ](https://cloud.sakura.ad.jp/products/secrets-manager/) などで利用する鍵として使う想定のもので、さらのクラウド KMS を直接利用するというユースケースはなかなか無いと思われます。今回は、 さくらのクラウド KMS の管理下にある鍵を使って [getops/sops](https://github.com/getsops/sops) を使いたくて作りました。
 

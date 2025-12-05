@@ -1,0 +1,6 @@
+baseURL = "https://example.org/"
+languageCode = "ja"
+title = "My Blog"
+
+[params]
+  author = "Your Name"

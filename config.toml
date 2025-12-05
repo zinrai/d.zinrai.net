@@ -2,13 +2,4 @@ baseURL = "/"
 relativeurls = true
 languageCode = "ja"
 title = "command not found:"
-theme = "hugo-xmin"
-
-[[menu.main]]
-    name = "Home"
-    url = "/"
-    weight = 1
-[[menu.main]]
-    name = "Profile"
-    url = "https://hub.zinrai.info"
-    weight = 2
+theme = "hugo-minimal"
