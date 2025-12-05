@@ -1,4 +1,5 @@
 <nav>
-  <a href="{{ "/" | relURL }}">Home</a>
-  <a href="https://hub.zinrai.info">Profile</a>
+  {{- range site.Menus.main }}
+  <a href="{{ .URL }}">{{ .Name }}</a>
+  {{- end }}
 </nav>

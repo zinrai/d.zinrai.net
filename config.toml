@@ -6,3 +6,13 @@ theme = "hugo-minimal"
 
 [params]
   googleAnalytics = "G-T35T2MCR4K"
+
+[[menus.main]]
+  name = "Home"
+  url = "/"
+  weight = 1
+
+[[menus.main]]
+  name = "Profile"
+  url = "https://hub.zinrai.info"
+  weight = 2
