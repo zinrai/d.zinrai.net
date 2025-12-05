@@ -3,3 +3,6 @@ relativeurls = true
 languageCode = "ja"
 title = "command not found:"
 theme = "hugo-minimal"
+
+[params]
+  googleAnalytics = "G-T35T2MCR4K"
