@@ -11,7 +11,7 @@ FreeBSD 標準の jail.conf(5) を活用した jail 管理ツールを作って�
 
 Go のテンプレートエンジンで jail.conf を記述し、 JSON でテンプレートに埋めるパラメータを記述して jail.conf(5) を /etc/jail.conf.d に生成します。 jail に対する操作は jail , jexec , jls などを使い jailconf-builder は jail.conf(5) の生成と base の展開が責務となっています。 Go のテンプレートで表現できる範囲であれば jail.conf(5) をどのようにでも表現できるようになっています。
 
-crate , delete サブコマンドは、既存の jail.conf がテンプレート展開結果と一致しない場合は処理を拒否します。手動編集した設定や、異なるテンプレートで作成した jail を誤って上書き・削除することを防ぎます。
+create , delete サブコマンドは、既存の jail.conf がテンプレート展開結果と一致しない場合は処理を拒否します。手動編集した設定や、異なるテンプレートで作成した jail を誤って上書き・削除することを防ぎます。
 
 ## 使い方
 
@@ -62,7 +62,7 @@ Jail 'myjail' deleted successfully.
 %
 ```
 
-preview サブコマンドで生成される jail.conf を stdout できます。
+preview サブコマンドで生成される jail.conf を確認できます。
 
 ```
 freebsd@freebsd14-jail:~ % ./jailconf-builder preview -template examples/standard/jail.conf.tmpl -config examples/standard/jails.json -name myjail
